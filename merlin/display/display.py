@@ -5,5 +5,5 @@ from merlin.answer import Answer
 
 class Display(ABC):
     @abstractmethod
-    def prompt(self, question: Question) -> Answer:
+    def get_answer_from_user(self, question: Question) -> Answer:
         ...

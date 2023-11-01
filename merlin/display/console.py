@@ -10,12 +10,19 @@ from merlin.validator import ValidatorException
 class Console(Display):
     shell_prompt: str
 
-    def prompt(self, question: Question) -> Answer:
+    def get_answer_from_user(self, question: Question) -> Answer:
         answer = None
         while answer is None:
-            try:
-                raw_input = input(question.prompt)
-                answer = question.validator(raw_input)
-            except ValidatorException as e:
-                ...
+            answer = self._try_to_get_answer(question)
         return answer
+    
+    def _try_to_get_answer(self, question: Question) -> Answer:
+        try:
+            raw_input = self._prompt(question)
+            return question.validator(raw_input)
+        except ValidatorException as e:
+            ...
+            return None
+        
+    def _prompt(self, question: Question) -> str:
+        return input(question.prompt)
