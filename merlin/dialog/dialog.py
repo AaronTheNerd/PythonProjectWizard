@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
-from typing import Generic, TypeVar, Any
 from dataclasses import dataclass, field
+from typing import Any, Generic, TypeVar
 
 from merlin.display.display import Display
 from merlin.question_suite import QuestionSuite

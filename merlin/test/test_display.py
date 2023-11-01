@@ -5,7 +5,7 @@ from merlin.answer import Answer
 from merlin.display.console import Console
 from merlin.display.display import Display
 from merlin.question import Question
-from merlin.validator import yes_or_no_validator, name_validator
+from merlin.validator import name_validator, yes_or_no_validator
 
 
 class DisplayTestSuite(unittest.TestCase):

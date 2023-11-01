@@ -2,8 +2,9 @@
 
 from merlin.dialog.project_dialog import ProjectDialog
 from merlin.display.console import Console
-from merlin.question_suite import QuestionSuite
 from merlin.question import Question
+from merlin.question_suite import QuestionSuite
+
 
 def main():
     # Run dialog

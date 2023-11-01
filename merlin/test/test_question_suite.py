@@ -1,7 +1,9 @@
 import unittest
-from merlin.question_suite import QuestionSuite
+
 from merlin.question import Question
+from merlin.question_suite import QuestionSuite
 from merlin.validator import name_validator
+
 
 class QuestionSuiteTestSuite(unittest.TestCase):
     def test_constructor(self):

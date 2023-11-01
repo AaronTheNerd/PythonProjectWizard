@@ -1,5 +1,7 @@
 import unittest
+
 from merlin.project import Project
+
 
 class ProjectTestSuite(unittest.TestCase):
     def test_default_constructor(self):
