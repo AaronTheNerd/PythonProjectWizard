@@ -30,3 +30,11 @@ class DisplayTestSuite(unittest.TestCase):
             answer = display.prompt(Question("Do you use VSCode?", yes_or_no_validator))
             self.assertIsInstance(answer.value, bool)
             self.assertTrue(answer.value)
+
+    def test_two_prompts_on_error(self):
+        test_inputs = ["huh", "N"]
+        with mock.patch("builtins.input", side_effect=test_inputs):
+            display = Console("")
+            answer = display.prompt(Question("Do you use VSCode?", yes_or_no_validator))
+            self.assertIsInstance(answer.value, bool)
+            self.assertFalse(answer.value)
