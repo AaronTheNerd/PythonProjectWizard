@@ -5,6 +5,7 @@ from merlin.answer import Answer
 from merlin.display.console import Console
 from merlin.display.display import Display
 from merlin.question import Question
+from merlin.validator import yes_or_no_validator, name_validator
 
 
 class DisplayTestSuite(unittest.TestCase):
@@ -13,11 +14,19 @@ class DisplayTestSuite(unittest.TestCase):
 
     def test_prompt_return_type(self):
         with mock.patch("builtins.input", return_value="Aaron"):
-            self.assertIsInstance(Console("").prompt(Question("Name?")), Answer)
+            self.assertIsInstance(Console("").prompt(Question("Name?", name_validator)), Answer)
 
     def test_prompt_return_value(self):
         test_name = "Aaron"
         with mock.patch("builtins.input", return_value=test_name):
             display = Console("")
-            answer = display.prompt(Question("Name?"))
-            self.assertEquals(test_name, answer.value)
+            answer = display.prompt(Question("Name?", name_validator))
+            self.assertEqual(test_name, answer.value)
+
+    def test_prompt_validator_return_value(self):
+        test_input = "Yes"
+        with mock.patch("builtins.input", return_value=test_input):
+            display = Console("")
+            answer = display.prompt(Question("Do you use VSCode?", yes_or_no_validator))
+            self.assertIsInstance(answer.value, bool)
+            self.assertTrue(answer.value)

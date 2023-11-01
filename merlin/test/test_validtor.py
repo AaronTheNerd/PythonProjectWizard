@@ -10,7 +10,7 @@ class ValidatorTestSuite(unittest.TestCase):
     def test_name_validator(self):
         raw_input = "merlin"
         answer = name_validator(raw_input)
-        self.assertEquals(answer.value, raw_input)
+        self.assertEqual(answer.value, raw_input)
 
     def test_yes_or_no_validator_callable(self):
         self.assertIsInstance(yes_or_no_validator, Callable)

@@ -10,4 +10,6 @@ class Console(Display):
     shell_prompt: str
 
     def prompt(self, question: Question) -> Answer:
-        return Answer(input(question.prompt))
+        raw_input = input(question.prompt)
+        answer = question.validator(raw_input)
+        return answer
