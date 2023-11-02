@@ -1,17 +1,17 @@
 import unittest
 from typing import Callable
 
-from merlin.validator import (ValidatorException, name_validator,
+from merlin.validator import (ValidatorException, raw_validator,
                               yes_or_no_validator)
 
 
 class ValidatorTestSuite(unittest.TestCase):
     def test_name_validator_callable(self):
-        self.assertIsInstance(name_validator, Callable)
+        self.assertIsInstance(raw_validator, Callable)
 
     def test_name_validator(self):
         raw_input = "merlin"
-        answer = name_validator(raw_input)
+        answer = raw_validator(raw_input)
         self.assertEqual(answer.value, raw_input)
 
     def test_yes_or_no_validator_callable(self):

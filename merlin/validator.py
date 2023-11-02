@@ -8,7 +8,7 @@ Validator = Callable[[str], Answer]
 class ValidatorException(Exception):
     ...
 
-def name_validator(raw_input: str) -> Answer:
+def raw_validator(raw_input: str) -> Answer:
     return Answer(raw_input)
 
 def yes_or_no_validator(raw_input: str) -> Answer: 

@@ -5,7 +5,7 @@ from merlin.answer import Answer
 from merlin.display.console import Console
 from merlin.display.display import Display
 from merlin.question import Question
-from merlin.validator import name_validator, yes_or_no_validator
+from merlin.validator import raw_validator, yes_or_no_validator
 
 
 class DisplayTestSuite(unittest.TestCase):
@@ -14,13 +14,13 @@ class DisplayTestSuite(unittest.TestCase):
 
     def test_prompt_return_type(self):
         with mock.patch("builtins.input", return_value="Aaron"):
-            self.assertIsInstance(Console("").get_answer_from_user(Question("Name?", name_validator)), Answer)
+            self.assertIsInstance(Console("").get_answer_from_user(Question("Name?", raw_validator)), Answer)
 
     def test_prompt_return_value(self):
         test_name = "Aaron"
         with mock.patch("builtins.input", return_value=test_name):
             display = Console("")
-            answer = display.get_answer_from_user(Question("Name?", name_validator))
+            answer = display.get_answer_from_user(Question("Name?", raw_validator))
             self.assertEqual(test_name, answer.value)
 
     def test_prompt_validator_return_value(self):
