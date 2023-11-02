@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 
 
-@dataclass(slots=True)
+@dataclass
 class Project:
     name: str = field(init=False)
     python_version: str = field(init=False)
