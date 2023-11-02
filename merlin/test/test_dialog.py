@@ -1,7 +1,8 @@
 import unittest
+import unittest.mock as mock
 from dataclasses import dataclass, field
-from merlin.answer import Answer
 
+from merlin.answer import Answer
 from merlin.dialog.dialog import Dialog
 from merlin.dialog.project_dialog import ProjectDialog
 from merlin.display.console import Console
@@ -18,8 +19,8 @@ class TestResult:
 
 @dataclass
 class TestDisplay(Display):
-    def get_answer_from_user(self, question: Question) -> Answer:
-        return Answer(question.prompt)
+    def prompt(self, question: Question) -> str:
+        return question.prompt
 
 class TestDialog(Dialog[TestResult]):
     def run(self) -> TestResult:
@@ -38,16 +39,36 @@ class DialogTestSuite(unittest.TestCase):
         test_result = TestDialog(Console(""), QuestionSuite({})).set_field(test_result, "name", test_name)
         self.assertEqual(test_result.name, test_name)
 
+    def test_get_answer_validator_return_value(self):
+        test_input = "Yes"
+        display = Console("")
+        suite = QuestionSuite({})
+        dialog = ProjectDialog(display, suite)
+        with mock.patch("builtins.input", return_value=test_input):
+            answer = dialog.get_answer_from_user(Question("Do you use VSCode?", yes_or_no_validator))
+            self.assertIsInstance(answer.value, bool)
+            self.assertTrue(answer.value)
+
+    def test_get_answer_two_prompts_on_error(self):
+        test_inputs = ["huh", "N"]
+        display = Console("")
+        suite = QuestionSuite({})
+        dialog = ProjectDialog(display, suite)
+        with mock.patch("builtins.input", side_effect=test_inputs):
+            answer = dialog.get_answer_from_user(Question("Do you use VSCode?", yes_or_no_validator))
+            self.assertIsInstance(answer.value, bool)
+            self.assertFalse(answer.value)
+
     def test_run(self):
         display = TestDisplay()
         question_suite = QuestionSuite({
-            "name": Question("Name?", validator=raw_validator),
+            "name": Question("Name?", raw_validator),
             "python_version": Question("Version?", raw_validator),
-            "use_black_formatting": Question("Black?", yes_or_no_validator),
-            "use_logging": Question("Logging?", yes_or_no_validator),
-            "use_unittest": Question("Unit Tests?", yes_or_no_validator),
-            "use_configs": Question("Configs?", yes_or_no_validator),
-            "use_args": Question("Arguments?", yes_or_no_validator),
+            "use_black_formatting": Question("Black?", raw_validator),
+            "use_logging": Question("Logging?", raw_validator),
+            "use_unittest": Question("Unit Tests?", raw_validator),
+            "use_configs": Question("Configs?", raw_validator),
+            "use_args": Question("Arguments?", raw_validator),
         })
         dialog = ProjectDialog(display, question_suite)
         project = dialog.run()
