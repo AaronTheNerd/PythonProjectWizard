@@ -1,4 +1,5 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from typing import Optional
 
 from merlin.validator import Validator
 
@@ -7,3 +8,4 @@ from merlin.validator import Validator
 class Question:
     prompt: str
     validator: Validator
+    default: Optional[str] = field(default=None)
