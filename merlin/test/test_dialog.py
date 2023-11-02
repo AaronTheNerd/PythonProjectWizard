@@ -45,7 +45,7 @@ class DialogTestSuite(unittest.TestCase):
         suite = QuestionSuite({})
         dialog = ProjectDialog(display, suite)
         with mock.patch("builtins.input", return_value=test_input):
-            answer = dialog.get_answer_from_user(Question("Do you use VSCode?", yes_or_no_validator))
+            answer = dialog.prompt_user_until_answer_provided(Question("Do you use VSCode?", yes_or_no_validator))
             self.assertIsInstance(answer.value, bool)
             self.assertTrue(answer.value)
 
@@ -55,7 +55,7 @@ class DialogTestSuite(unittest.TestCase):
         suite = QuestionSuite({})
         dialog = ProjectDialog(display, suite)
         with mock.patch("builtins.input", side_effect=test_inputs):
-            answer = dialog.get_answer_from_user(Question("Do you use VSCode?", yes_or_no_validator))
+            answer = dialog.prompt_user_until_answer_provided(Question("Do you use VSCode?", yes_or_no_validator))
             self.assertIsInstance(answer.value, bool)
             self.assertFalse(answer.value)
 
@@ -65,7 +65,7 @@ class DialogTestSuite(unittest.TestCase):
         suite = QuestionSuite({})
         dialog = ProjectDialog(display, suite)
         with mock.patch("builtins.input", side_effect=test_inputs):
-            answer = dialog.get_answer_from_user(Question("Name?", raw_validator))
+            answer = dialog.prompt_user_until_answer_provided(Question("Name?", raw_validator))
             self.assertIsInstance(answer.value, str)
             self.assertEqual(answer.value, "Merlin")
 
@@ -75,7 +75,7 @@ class DialogTestSuite(unittest.TestCase):
         suite = QuestionSuite({})
         dialog = ProjectDialog(display, suite)
         with mock.patch("builtins.input", return_value=test_input):
-            answer = dialog.get_answer_from_user(Question("Do you use VSCode?", yes_or_no_validator, "Y"))
+            answer = dialog.prompt_user_until_answer_provided(Question("Do you use VSCode?", yes_or_no_validator, "Y"))
             self.assertIsInstance(answer.value, bool)
             self.assertTrue(answer.value)
 

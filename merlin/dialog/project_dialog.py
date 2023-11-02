@@ -13,25 +13,28 @@ class ProjectDialog(Dialog[Project]):
     def run(self) -> Project:
         project = Project()
         for field_name, question in self.question_suite.field_to_question.items():
-            answer = self.get_answer_from_user(question)
+            answer = self.prompt_user_until_answer_provided(question)
             project = self.set_field(project, field_name, answer.value)
         return project
     
-    def get_answer_from_user(self, question: Question) -> Answer:
+    def prompt_user_until_answer_provided(self, question: Question) -> Answer:
         answer = None
         while answer is None:
-            answer = self._try_to_get_answer(question)
+            answer = self.try_to_get_answer(question)
         return answer
     
-    def _try_to_get_answer(self, question: Question) -> Answer:
+    def try_to_get_answer(self, question: Question) -> Answer:
         try:
-            raw_input = self.display.prompt(question)
-            raw_input = self.check_for_default(raw_input, question)
-            return question.validator(raw_input)
-        except ValidatorException as e:
-            ...
+            return self.get_input_from_user(question)
+        except Exception as e:
+            # TODO: Display error
             return None
         
+    def get_input_from_user(self, question: Question) -> Answer:
+        raw_input = self.display.prompt(question)
+        raw_input = self.check_for_default(raw_input, question)
+        return question.validator(raw_input)
+
     def check_for_default(self, raw_input: str, question: Question) -> str:
         if raw_input == "":
             return self.apply_default(question)
