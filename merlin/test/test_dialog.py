@@ -59,6 +59,16 @@ class DialogTestSuite(unittest.TestCase):
             self.assertIsInstance(answer.value, bool)
             self.assertFalse(answer.value)
 
+    def test_error_on_blank_with_no_default(self):
+        test_inputs = ["", "Merlin"]
+        display = Console("")
+        suite = QuestionSuite({})
+        dialog = ProjectDialog(display, suite)
+        with mock.patch("builtins.input", side_effect=test_inputs):
+            answer = dialog.get_answer_from_user(Question("Name?", raw_validator))
+            self.assertIsInstance(answer.value, str)
+            self.assertEqual(answer.value, "Merlin")
+
     def test_run(self):
         display = TestDisplay()
         question_suite = QuestionSuite({
