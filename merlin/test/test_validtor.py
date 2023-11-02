@@ -1,8 +1,8 @@
 import unittest
 from typing import Callable
 
-from merlin.validator import (ValidatorException, raw_validator,
-                              yes_or_no_validator)
+from merlin.exception import ValidatorException
+from merlin.validator import raw_validator, yes_or_no_validator
 
 
 class ValidatorTestSuite(unittest.TestCase):

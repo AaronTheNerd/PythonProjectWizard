@@ -7,6 +7,7 @@ from merlin.dialog.dialog import Dialog
 from merlin.dialog.project_dialog import ProjectDialog
 from merlin.display.console import Console
 from merlin.display.display import Display
+from merlin.exception import DefaultMissingException, ValidatorException
 from merlin.project import Project
 from merlin.question import Question
 from merlin.question_suite import QuestionSuite
@@ -24,6 +25,16 @@ class TestDisplay(Display):
     
     def display_error(self, exception: Exception) -> None:
         return
+    
+@dataclass
+class ErrorTestDisplay(Display):
+    errors: list[Exception] = field(default_factory=list)
+
+    def prompt(self, question: Question) -> str:
+        return input(question.prompt)
+    
+    def display_error(self, exception: Exception) -> None:
+        self.errors.append(exception)
 
 class TestDialog(Dialog[TestResult]):
     def run(self) -> TestResult:
@@ -102,3 +113,35 @@ class DialogTestSuite(unittest.TestCase):
         self.assertEqual(project.use_unittest, "Unit Tests?")
         self.assertEqual(project.use_configs, "Configs?")
         self.assertEqual(project.use_args, "Arguments?")
+
+    def test_exceptions_displayed(self):
+        test_inputs = [
+            "", "Merlin", # Name
+            "3.10", # Version
+            "", "Y", # Black formatting
+            "huh", "Y", # Logging
+            "N", # Unit test
+            "", # Configs
+            "" # args
+        ]
+        expected_errors = [
+            DefaultMissingException, 
+            DefaultMissingException, 
+            ValidatorException
+        ]
+        display = ErrorTestDisplay()
+        question_suite = QuestionSuite({
+            "name": Question("Name?", raw_validator),
+            "python_version": Question("Version?", raw_validator),
+            "use_black_formatting": Question("Black?", yes_or_no_validator),
+            "use_logging": Question("Logging?", yes_or_no_validator),
+            "use_unittest": Question("Unit Tests?", yes_or_no_validator),
+            "use_configs": Question("Configs?", yes_or_no_validator, "Y"),
+            "use_args": Question("Arguments?", yes_or_no_validator, "N"),
+        })
+        dialog = ProjectDialog(display, question_suite)
+        with mock.patch("builtins.input", side_effect=test_inputs):
+            dialog.run()
+            self.assertEqual(len(expected_errors), len(display.errors))
+            for i in range(len(expected_errors)):
+                self.assertIsInstance(display.errors[i], expected_errors[i])

@@ -2,11 +2,9 @@ import re
 from typing import Callable
 
 from merlin.answer import Answer
+from merlin.exception import ValidatorException
 
 Validator = Callable[[str], Answer]
-
-class ValidatorException(Exception):
-    ...
 
 def raw_validator(raw_input: str) -> Answer:
     return Answer(raw_input)

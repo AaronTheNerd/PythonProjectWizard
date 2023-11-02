@@ -4,7 +4,7 @@ from merlin.answer import Answer
 from merlin.dialog.dialog import Dialog
 from merlin.project import Project
 from merlin.question import Question
-from merlin.validator import ValidatorException
+from merlin.exception import ValidatorException, DefaultMissingException
 
 
 @dataclass
@@ -27,7 +27,7 @@ class ProjectDialog(Dialog[Project]):
         try:
             return self.get_input_from_user(question)
         except Exception as e:
-            # TODO: Display error
+            self.display.display_error(e)
             return None
         
     def get_input_from_user(self, question: Question) -> Answer:
@@ -42,5 +42,5 @@ class ProjectDialog(Dialog[Project]):
     
     def apply_default(self, question: Question) -> str:
         if question.default is None:
-            raise ValidatorException("Please enter a value")
+            raise DefaultMissingException("Please enter a value")
         return question.default
