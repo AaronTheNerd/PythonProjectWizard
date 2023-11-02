@@ -7,3 +7,7 @@ class Display(ABC):
     @abstractmethod
     def prompt(self, question: Question) -> str:
         ...
+
+    @abstractmethod
+    def display_error(self, exception: Exception) -> None:
+        ...

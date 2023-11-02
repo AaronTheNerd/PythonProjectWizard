@@ -21,6 +21,9 @@ class TestResult:
 class TestDisplay(Display):
     def prompt(self, question: Question) -> str:
         return question.prompt
+    
+    def display_error(self, exception: Exception) -> None:
+        return
 
 class TestDialog(Dialog[TestResult]):
     def run(self) -> TestResult:

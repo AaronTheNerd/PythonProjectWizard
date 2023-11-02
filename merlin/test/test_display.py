@@ -18,4 +18,11 @@ class DisplayTestSuite(unittest.TestCase):
             raw_input = Console("").prompt(Question("Name?", raw_validator))
             self.assertIsInstance(raw_input, str)
             self.assertEqual(raw_input, test_input)
+    
+    def test_display_error(self):
+        test_error_message = "ERROR MESSAGE"
+        with mock.patch("builtins.print") as mock_print:
+            console = Console("")
+            console.display_error(Exception(test_error_message))
+            mock_print.assert_called()
 

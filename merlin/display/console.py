@@ -10,3 +10,6 @@ class Console(Display):
 
     def prompt(self, question: Question) -> str:
         return input(f"{self.shell_prompt} {question.prompt} ")
+    
+    def display_error(self, exception: Exception) -> None:
+        print(str(exception))
