@@ -25,4 +25,4 @@ class Console(Display):
             return None
         
     def _prompt(self, question: Question) -> str:
-        return input(question.prompt)
+        return input(f"{self.shell_prompt} {question.prompt} ")
