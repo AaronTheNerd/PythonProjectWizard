@@ -26,7 +26,7 @@ class ProjectDialog(Dialog[Project]):
     def _try_to_get_answer(self, question: Question) -> Answer:
         try:
             raw_input = self.display.prompt(question)
-            self.check_for_default(raw_input, question)
+            raw_input = self.check_for_default(raw_input, question)
             return question.validator(raw_input)
         except ValidatorException as e:
             ...

@@ -69,6 +69,16 @@ class DialogTestSuite(unittest.TestCase):
             self.assertIsInstance(answer.value, str)
             self.assertEqual(answer.value, "Merlin")
 
+    def test_set_value_to_default(self):
+        test_input = ""
+        display = Console("")
+        suite = QuestionSuite({})
+        dialog = ProjectDialog(display, suite)
+        with mock.patch("builtins.input", return_value=test_input):
+            answer = dialog.get_answer_from_user(Question("Do you use VSCode?", yes_or_no_validator, "Y"))
+            self.assertIsInstance(answer.value, bool)
+            self.assertTrue(answer.value)
+
     def test_run(self):
         display = TestDisplay()
         question_suite = QuestionSuite({
