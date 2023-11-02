@@ -15,8 +15,7 @@
       "name": "Launch",
       "type": "python",
       "request": "launch",
-      "program": "${workspaceFolder}/src/main.py",
-      "console": "integratedTerminal",
+      "module": "merlin.main",
       "justMyCode": true
     }
   ]
