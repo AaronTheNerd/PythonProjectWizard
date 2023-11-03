@@ -14,4 +14,4 @@ def yes_or_no_validator(raw_input: str) -> Answer:
     if true_input: return Answer(True)
     false_input = re.match("^n", raw_input, re.IGNORECASE)
     if false_input: return Answer(False)
-    raise ValidatorException(f"Unexpected valued received: `{raw_input}`.\nPlease input yes or no.")
+    raise ValidatorException(f"Unexpected value received: `{raw_input}`.")
