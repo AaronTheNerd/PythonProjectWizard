@@ -1,10 +1,9 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 from merlin.answer import Answer
 from merlin.dialog.dialog import Dialog
 from merlin.project import Project
 from merlin.question.question import Question
-from merlin.exception import DefaultMissingException
 
 
 @dataclass

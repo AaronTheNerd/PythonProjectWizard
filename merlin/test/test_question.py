@@ -1,7 +1,7 @@
 import unittest
 
-from merlin.question.plain_question import PlainQuestion
 from merlin.question.bool_question import BoolQuestion
+from merlin.question.plain_question import PlainQuestion
 from merlin.question.question import Question
 
 

@@ -1,7 +1,6 @@
 import unittest
 import unittest.mock as mock
 
-from merlin.answer import Answer
 from merlin.display.console import Console
 from merlin.display.display import Display
 from merlin.question.plain_question import PlainQuestion

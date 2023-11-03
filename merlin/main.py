@@ -2,7 +2,6 @@
 
 from merlin.dialog.project_dialog import ProjectDialog
 from merlin.display.console import Console
-from merlin.question.question import Question
 from merlin.question.bool_question import BoolQuestion
 from merlin.question.plain_question import PlainQuestion
 from merlin.question_suite import QuestionSuite
