@@ -1,10 +1,17 @@
 import unittest
 import unittest.mock as mock
+from dataclasses import dataclass
 
 from merlin.display.console import Console
 from merlin.display.display import Display
 from merlin.question.plain_question import PlainQuestion
+from merlin.question.bool_question import BoolQuestion
+from merlin.question.question import Question
 
+@dataclass
+class DefaultStringTest:
+    question: Question
+    expected: str
 
 class DisplayTestSuite(unittest.TestCase):
     def test_constructor(self):
@@ -26,3 +33,14 @@ class DisplayTestSuite(unittest.TestCase):
             console.display_error(Exception(test_error_message))
             mock_print.assert_called()
 
+    def test_default_string(self):
+        cases = [
+            DefaultStringTest(PlainQuestion(""), ""),
+            DefaultStringTest(PlainQuestion("", "3.10"), "[3.10]"),
+            DefaultStringTest(BoolQuestion(""), ""),
+            DefaultStringTest(BoolQuestion("", "y"), "[Y]"),
+            DefaultStringTest(BoolQuestion("", "n"), "[N]"),
+        ]
+        display = Console()
+        for case in cases:
+            self.assertEqual(display.get_default_string(case.question), case.expected)
