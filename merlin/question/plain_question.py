@@ -3,5 +3,5 @@ from merlin.question.question import Question
 
 
 class PlainQuestion(Question):
-    def validate_or_default(self, raw_input: str) -> Answer:
+    def validate_input_or_default(self, raw_input: str) -> Answer:
         return Answer(raw_input)

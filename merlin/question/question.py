@@ -13,10 +13,10 @@ class Question(ABC):
 
     def validate_raw_input(self, raw_input: str) -> Answer:
         input = self.check_for_default(raw_input)
-        return self.validate_or_default(input)
+        return self.validate_input_or_default(input)
 
     @abstractmethod
-    def validate_or_default(self, input: str) -> Answer:
+    def validate_input_or_default(self, input: str) -> Answer:
         ...
 
     def check_for_default(self, raw_input: str) -> str:

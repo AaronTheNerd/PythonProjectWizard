@@ -4,6 +4,7 @@ from merlin.dialog.project_dialog import ProjectDialog
 from merlin.display.console import Console
 from merlin.question.bool_question import BoolQuestion
 from merlin.question.plain_question import PlainQuestion
+from merlin.question.version_question import VersionQuestion
 from merlin.question_suite import QuestionSuite
 from merlin.utils.console_text import ConsoleTextModifier, modify_text
 
@@ -15,12 +16,12 @@ def main():
     console = Console(shell_prompt, error_prefix)
     question_suite = QuestionSuite({
         "name": PlainQuestion("What is the name of your Project?"),
-        "python_version": PlainQuestion("What version of Python?", "3.10"),
-        "use_black_formatting": BoolQuestion("Black?", "Y"),
-        "use_logging": BoolQuestion("Logging?", "Y"),
-        "use_unittest": BoolQuestion("Unit Tests?", "Y"),
-        "use_configs": BoolQuestion("Configs?", "Y"),
-        "use_args": BoolQuestion("Arguments?", "N"),
+        "python_version": VersionQuestion("What version of Python?", default="3.10"),
+        "use_black_formatting": BoolQuestion("Add Black formatting to your project?", default="Y"),
+        "use_logging": BoolQuestion("Logging?", default="Y"),
+        "use_unittest": BoolQuestion("Unit Tests?", default="Y"),
+        "use_configs": BoolQuestion("Configs?", default="Y"),
+        "use_args": BoolQuestion("Arguments?", default="N"),
     })
     dialog = ProjectDialog(console, question_suite)
     project = dialog.run()
