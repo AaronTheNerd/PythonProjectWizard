@@ -42,20 +42,20 @@ class TestDialog(Dialog[TestResult]):
 
 class DialogTestSuite(unittest.TestCase):
     def test_constructor(self):
-        self.assertIsInstance(ProjectDialog(Console(""), QuestionSuite({})), Dialog)
+        self.assertIsInstance(ProjectDialog(Console(), QuestionSuite({})), Dialog)
 
     def test_run(self):
-        self.assertIsInstance(ProjectDialog(Console(""), QuestionSuite({})).run(), Project)
+        self.assertIsInstance(ProjectDialog(Console(), QuestionSuite({})).run(), Project)
 
     def test_set_field(self):
         test_name = "BEANS"
         test_result = TestResult()
-        test_result = TestDialog(Console(""), QuestionSuite({})).set_field(test_result, "name", test_name)
+        test_result = TestDialog(Console(), QuestionSuite({})).set_field(test_result, "name", test_name)
         self.assertEqual(test_result.name, test_name)
 
     def test_get_answer_validator_return_value(self):
         test_input = "Yes"
-        display = Console("")
+        display = Console()
         suite = QuestionSuite({})
         dialog = ProjectDialog(display, suite)
         with mock.patch("builtins.input", return_value=test_input):
@@ -65,7 +65,7 @@ class DialogTestSuite(unittest.TestCase):
 
     def test_get_answer_two_prompts_on_error(self):
         test_inputs = ["huh", "N"]
-        display = Console("")
+        display = Console()
         suite = QuestionSuite({})
         dialog = ProjectDialog(display, suite)
         with mock.patch("builtins.input", side_effect=test_inputs):
@@ -75,7 +75,7 @@ class DialogTestSuite(unittest.TestCase):
 
     def test_error_on_blank_with_no_default(self):
         test_inputs = ["", "Merlin"]
-        display = Console("")
+        display = Console()
         suite = QuestionSuite({})
         dialog = ProjectDialog(display, suite)
         with mock.patch("builtins.input", side_effect=test_inputs):
@@ -85,7 +85,7 @@ class DialogTestSuite(unittest.TestCase):
 
     def test_set_value_to_default(self):
         test_input = ""
-        display = Console("")
+        display = Console()
         suite = QuestionSuite({})
         dialog = ProjectDialog(display, suite)
         with mock.patch("builtins.input", return_value=test_input):

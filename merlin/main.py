@@ -10,8 +10,9 @@ from merlin.validator import raw_validator, yes_or_no_validator
 
 def main():
     # Run dialog
-    shell_prompt = modify_text(f"{modify_text('Merlin', ConsoleTextModifier.OKBLUE)} $", ConsoleTextModifier.BOLD)
-    console = Console(shell_prompt)
+    shell_prompt = modify_text(modify_text('Merlin', ConsoleTextModifier.OKBLUE), ConsoleTextModifier.BOLD) + "$"
+    error_prefix = modify_text(modify_text("[ERROR]", ConsoleTextModifier.WARNING), ConsoleTextModifier.BOLD)
+    console = Console(shell_prompt, error_prefix)
     question_suite = QuestionSuite({
         "name": Question("What is the name of your Project?", raw_validator),
         "python_version": Question("What version of Python?", raw_validator),
