@@ -4,8 +4,7 @@ import unittest.mock as mock
 from merlin.answer import Answer
 from merlin.display.console import Console
 from merlin.display.display import Display
-from merlin.question import Question
-from merlin.validator import raw_validator, yes_or_no_validator
+from merlin.question.plain_question import PlainQuestion
 
 
 class DisplayTestSuite(unittest.TestCase):
@@ -17,7 +16,7 @@ class DisplayTestSuite(unittest.TestCase):
     def test_prompt_return(self):
         test_input = "Aaron"
         with mock.patch("builtins.input", return_value=test_input):
-            raw_input = Console().prompt(Question("Name?", raw_validator))
+            raw_input = Console().prompt(PlainQuestion("Name?"))
             self.assertIsInstance(raw_input, str)
             self.assertEqual(raw_input, test_input)
     

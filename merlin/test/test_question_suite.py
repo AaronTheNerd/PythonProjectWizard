@@ -1,13 +1,13 @@
 import unittest
 
-from merlin.question import Question
+from merlin.question.plain_question import PlainQuestion
+from merlin.question.bool_question import BoolQuestion
 from merlin.question_suite import QuestionSuite
-from merlin.validator import raw_validator
 
 
 class QuestionSuiteTestSuite(unittest.TestCase):
     def test_constructor(self):
         suite = QuestionSuite({
-            "name": Question("Name of Project: ", raw_validator)
+            "name": PlainQuestion("Name of Project: ")
         })
         self.assertIsInstance(suite, QuestionSuite)

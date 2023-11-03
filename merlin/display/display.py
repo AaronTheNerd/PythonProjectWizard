@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from merlin.question import Question
+from merlin.question.question import Question
 
 
 class Display(ABC):

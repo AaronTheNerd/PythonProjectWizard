@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from merlin.question import Question
+from merlin.question.question import Question
 
 
 @dataclass

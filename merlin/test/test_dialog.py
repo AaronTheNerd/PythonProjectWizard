@@ -2,16 +2,16 @@ import unittest
 import unittest.mock as mock
 from dataclasses import dataclass, field
 
-from merlin.answer import Answer
 from merlin.dialog.dialog import Dialog
 from merlin.dialog.project_dialog import ProjectDialog
 from merlin.display.console import Console
 from merlin.display.display import Display
-from merlin.exception import DefaultMissingException, ValidatorException
+from merlin.exception import DefaultMissingException
 from merlin.project import Project
-from merlin.question import Question
+from merlin.question.bool_question import BoolQuestion
+from merlin.question.plain_question import PlainQuestion
+from merlin.question.question import Question
 from merlin.question_suite import QuestionSuite
-from merlin.validator import raw_validator, yes_or_no_validator
 
 
 @dataclass
@@ -59,7 +59,7 @@ class DialogTestSuite(unittest.TestCase):
         suite = QuestionSuite({})
         dialog = ProjectDialog(display, suite)
         with mock.patch("builtins.input", return_value=test_input):
-            answer = dialog.prompt_user_until_answer_provided(Question("Do you use VSCode?", yes_or_no_validator))
+            answer = dialog.prompt_user_until_answer_provided(BoolQuestion("Do you use VSCode?"))
             self.assertIsInstance(answer.value, bool)
             self.assertTrue(answer.value)
 
@@ -69,7 +69,7 @@ class DialogTestSuite(unittest.TestCase):
         suite = QuestionSuite({})
         dialog = ProjectDialog(display, suite)
         with mock.patch("builtins.input", side_effect=test_inputs):
-            answer = dialog.prompt_user_until_answer_provided(Question("Do you use VSCode?", yes_or_no_validator))
+            answer = dialog.prompt_user_until_answer_provided(BoolQuestion("Do you use VSCode?"))
             self.assertIsInstance(answer.value, bool)
             self.assertFalse(answer.value)
 
@@ -79,30 +79,20 @@ class DialogTestSuite(unittest.TestCase):
         suite = QuestionSuite({})
         dialog = ProjectDialog(display, suite)
         with mock.patch("builtins.input", side_effect=test_inputs):
-            answer = dialog.prompt_user_until_answer_provided(Question("Name?", raw_validator))
+            answer = dialog.prompt_user_until_answer_provided(PlainQuestion("Name?"))
             self.assertIsInstance(answer.value, str)
             self.assertEqual(answer.value, "Merlin")
-
-    def test_set_value_to_default(self):
-        test_input = ""
-        display = Console()
-        suite = QuestionSuite({})
-        dialog = ProjectDialog(display, suite)
-        with mock.patch("builtins.input", return_value=test_input):
-            answer = dialog.prompt_user_until_answer_provided(Question("Do you use VSCode?", yes_or_no_validator, "Y"))
-            self.assertIsInstance(answer.value, bool)
-            self.assertTrue(answer.value)
 
     def test_run(self):
         display = TestDisplay()
         question_suite = QuestionSuite({
-            "name": Question("Name?", raw_validator),
-            "python_version": Question("Version?", raw_validator),
-            "use_black_formatting": Question("Black?", raw_validator),
-            "use_logging": Question("Logging?", raw_validator),
-            "use_unittest": Question("Unit Tests?", raw_validator),
-            "use_configs": Question("Configs?", raw_validator),
-            "use_args": Question("Arguments?", raw_validator),
+            "name": PlainQuestion("Name?"),
+            "python_version": PlainQuestion("Version?"),
+            "use_black_formatting": PlainQuestion("Black?"),
+            "use_logging": PlainQuestion("Logging?"),
+            "use_unittest": PlainQuestion("Unit Tests?"),
+            "use_configs": PlainQuestion("Configs?"),
+            "use_args": PlainQuestion("Arguments?"),
         })
         dialog = ProjectDialog(display, question_suite)
         project = dialog.run()
@@ -127,17 +117,17 @@ class DialogTestSuite(unittest.TestCase):
         expected_errors = [
             DefaultMissingException, 
             DefaultMissingException, 
-            ValidatorException
+            ValueError
         ]
         display = ErrorTestDisplay()
         question_suite = QuestionSuite({
-            "name": Question("Name?", raw_validator),
-            "python_version": Question("Version?", raw_validator),
-            "use_black_formatting": Question("Black?", yes_or_no_validator),
-            "use_logging": Question("Logging?", yes_or_no_validator),
-            "use_unittest": Question("Unit Tests?", yes_or_no_validator),
-            "use_configs": Question("Configs?", yes_or_no_validator, "Y"),
-            "use_args": Question("Arguments?", yes_or_no_validator, "N"),
+            "name": PlainQuestion("Name?"),
+            "python_version": PlainQuestion("Version?"),
+            "use_black_formatting": BoolQuestion("Black?"),
+            "use_logging": BoolQuestion("Logging?"),
+            "use_unittest": BoolQuestion("Unit Tests?"),
+            "use_configs": BoolQuestion("Configs?", "Y"),
+            "use_args": BoolQuestion("Arguments?", "N"),
         })
         dialog = ProjectDialog(display, question_suite)
         with mock.patch("builtins.input", side_effect=test_inputs):

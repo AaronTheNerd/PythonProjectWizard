@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from merlin.display.display import Display
-from merlin.question import Question
+from merlin.question.question import Question
 
 
 @dataclass

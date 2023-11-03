@@ -3,8 +3,8 @@ from dataclasses import dataclass, field
 from merlin.answer import Answer
 from merlin.dialog.dialog import Dialog
 from merlin.project import Project
-from merlin.question import Question
-from merlin.exception import ValidatorException, DefaultMissingException
+from merlin.question.question import Question
+from merlin.exception import DefaultMissingException
 
 
 @dataclass
@@ -32,15 +32,4 @@ class ProjectDialog(Dialog[Project]):
         
     def get_input_from_user(self, question: Question) -> Answer:
         raw_input = self.display.prompt(question)
-        raw_input = self.check_for_default(raw_input, question)
-        return question.validator(raw_input)
-
-    def check_for_default(self, raw_input: str, question: Question) -> str:
-        if raw_input == "":
-            return self.apply_default(question)
-        return raw_input
-    
-    def apply_default(self, question: Question) -> str:
-        if question.default is None:
-            raise DefaultMissingException("Please enter a value")
-        return question.default
+        return question.validate_raw_input(raw_input)
