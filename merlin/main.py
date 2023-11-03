@@ -15,12 +15,12 @@ def main():
     console = Console(shell_prompt, error_prefix)
     question_suite = QuestionSuite({
         "name": PlainQuestion("What is the name of your Project?"),
-        "python_version": PlainQuestion("What version of Python?"),
-        "use_black_formatting": BoolQuestion("Black?"),
-        "use_logging": BoolQuestion("Logging?"),
-        "use_unittest": BoolQuestion("Unit Tests?"),
-        "use_configs": BoolQuestion("Configs?"),
-        "use_args": BoolQuestion("Arguments?"),
+        "python_version": PlainQuestion("What version of Python?", "3.10"),
+        "use_black_formatting": BoolQuestion("Black?", "Y"),
+        "use_logging": BoolQuestion("Logging?", "Y"),
+        "use_unittest": BoolQuestion("Unit Tests?", "Y"),
+        "use_configs": BoolQuestion("Configs?", "Y"),
+        "use_args": BoolQuestion("Arguments?", "N"),
     })
     dialog = ProjectDialog(console, question_suite)
     project = dialog.run()
