@@ -37,7 +37,9 @@ class QuestionTestSuite(unittest.TestCase):
         raw_inputs = ["maybe", "c", "C", "huh"]
         question = BoolQuestion("")
         for raw_input in raw_inputs:
-            self.assertRaises(ValueError, BoolQuestion.validate_input_or_default, question, raw_input)
+            self.assertRaises(
+                ValueError, BoolQuestion.validate_input_or_default, question, raw_input
+            )
 
     def test_set_value_to_default(self):
         test_input = ""
@@ -57,7 +59,9 @@ class QuestionTestSuite(unittest.TestCase):
         test_inputs = ["2.7", "3.", "3"]
         question = VersionQuestion("What version of Python?")
         for input in test_inputs:
-            self.assertRaises(ValueError, VersionQuestion.validate_input_or_default, question, input)
+            self.assertRaises(
+                ValueError, VersionQuestion.validate_input_or_default, question, input
+            )
 
     def test_default_is_valid(self):
         self.assertRaises(ValueError, BoolQuestion, "", "huh")

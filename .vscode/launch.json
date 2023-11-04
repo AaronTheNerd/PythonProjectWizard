@@ -5,6 +5,14 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Format Code",
+      "type": "python",
+      "request": "launch",
+      "module": "black",
+      "justMyCode": true,
+      "args": ["merlin"]
+    },
+    {
       "name": "Run Test Suite",
       "type": "python",
       "request": "launch",

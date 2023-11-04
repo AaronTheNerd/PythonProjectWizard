@@ -33,4 +33,3 @@ class Question(ABC):
         if self.default is None:
             raise DefaultMissingException("Please enter a value")
         return self.default
-    

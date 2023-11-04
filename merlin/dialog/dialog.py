@@ -7,6 +7,7 @@ from merlin.question_suite import QuestionSuite
 
 T = TypeVar("T")
 
+
 @dataclass
 class Dialog(ABC, Generic[T]):
     display: Display

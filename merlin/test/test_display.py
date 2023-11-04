@@ -8,10 +8,12 @@ from merlin.question.plain_question import PlainQuestion
 from merlin.question.bool_question import BoolQuestion
 from merlin.question.question import Question
 
+
 @dataclass
 class DefaultStringTest:
     question: Question
     expected: str
+
 
 class DisplayTestSuite(unittest.TestCase):
     def test_constructor(self):
@@ -25,7 +27,7 @@ class DisplayTestSuite(unittest.TestCase):
             raw_input = Console().prompt(PlainQuestion("Name?"))
             self.assertIsInstance(raw_input, str)
             self.assertEqual(raw_input, test_input)
-    
+
     def test_display_error(self):
         test_error_message = "ERROR MESSAGE"
         with mock.patch("builtins.print") as mock_print:

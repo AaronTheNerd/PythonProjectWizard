@@ -12,7 +12,7 @@ class Console(Display):
     def prompt(self, question: Question) -> str:
         default_string = self.get_default_string(question)
         return input(f"{self.shell_prompt} {question.prompt}{f' {default_string}'} ")
-    
+
     def display_error(self, exception: Exception) -> None:
         print(f"{self.error_prefix} {str(exception)}")
 

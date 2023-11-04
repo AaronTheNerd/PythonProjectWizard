@@ -4,6 +4,7 @@ from enum import Enum
 class StrEnum(str, Enum):
     pass
 
+
 # Based on: https://stackoverflow.com/questions/287871/how-do-i-print-colored-text-to-the-terminal
 class ConsoleTextModifier(StrEnum):
     HEADER = "\033[95m"
