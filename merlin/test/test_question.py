@@ -58,3 +58,7 @@ class QuestionTestSuite(unittest.TestCase):
         question = VersionQuestion("What version of Python?")
         for input in test_inputs:
             self.assertRaises(ValueError, VersionQuestion.validate_input_or_default, question, input)
+
+    def test_default_is_valid(self):
+        self.assertRaises(ValueError, BoolQuestion, "", "huh")
+        self.assertRaises(ValueError, VersionQuestion, "", "2.7")

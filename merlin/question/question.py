@@ -11,6 +11,11 @@ class Question(ABC):
     prompt: str
     default: Optional[str] = field(default=None)
 
+    def __post_init__(self):
+        if self.default is None:
+            return
+        self.validate_input_or_default(self.default)
+
     def validate_raw_input(self, raw_input: str) -> Answer:
         input = self.check_for_default(raw_input)
         return self.validate_input_or_default(input)
