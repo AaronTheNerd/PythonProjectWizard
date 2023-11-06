@@ -12,9 +12,7 @@ from merlin.question_suite import QuestionSuite
 project_question_suite = QuestionSuite(
     {
         "name": PlainQuestion("What is the name of your Project?"),
-        "python_version": VersionQuestion(
-            "What version of Python?", default="3.10"
-        ),
+        "python_version": VersionQuestion("What version of Python?", default="3.10"),
         "use_black_formatting": BoolQuestion(
             "Add Black formatting to your project?", default="Y"
         ),
@@ -25,10 +23,12 @@ project_question_suite = QuestionSuite(
     }
 )
 
+
 @dataclass
 class ProjectDialog(Dialog[Project]):
-    question_suite: ClassVar[QuestionSuite] = field(init=False, default=project_question_suite)
-    
+    question_suite: ClassVar[QuestionSuite] = field(
+        init=False, default=project_question_suite
+    )
 
     def run(self) -> Project:
         project = Project()

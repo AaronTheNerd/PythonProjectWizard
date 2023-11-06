@@ -34,6 +34,7 @@ class ErrorTestDisplay(Display):
     def display_error(self, exception: Exception) -> None:
         self.errors.append(exception)
 
+
 class DialogRunnerTestSuite(unittest.TestCase):
     def test_constructor(self):
         self.assertIsInstance(SyncRunner(Console()), DialogRunner)
@@ -68,8 +69,6 @@ class DialogRunnerTestSuite(unittest.TestCase):
             answer = runner.prompt_user_until_answer_provided(PlainQuestion("Name?"))
             self.assertIsInstance(answer.value, str)
             self.assertEqual(answer.value, "Merlin")
-
-    
 
     def test_exceptions_displayed(self):
         test_inputs = [

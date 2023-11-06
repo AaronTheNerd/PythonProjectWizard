@@ -8,6 +8,7 @@ from typing import Generic, TypeVar
 
 T = TypeVar("T")
 
+
 class SyncRunner(DialogRunner[T], Generic[T]):
     def run(self, obj: T, suite: QuestionSuite) -> T:
         for field_name, question in suite.field_to_question.items():
