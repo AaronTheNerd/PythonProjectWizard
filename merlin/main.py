@@ -5,9 +5,7 @@ from merlin.display.console import Console
 from merlin.dialog_runner.synchronous_runner import SyncRunner
 from merlin.utils.console_text import ConsoleTextModifier, modify_text
 
-
-def main():
-    # Run dialog
+def create_main_console():
     shell_prompt = (
         modify_text(
             modify_text("Merlin", ConsoleTextModifier.OKBLUE), ConsoleTextModifier.BOLD
@@ -17,8 +15,13 @@ def main():
     error_prefix = modify_text(
         modify_text("[ERROR]", ConsoleTextModifier.WARNING), ConsoleTextModifier.BOLD
     )
-    console = Console(shell_prompt, error_prefix)
-    runner = SyncRunner(console)
+    return Console(shell_prompt, error_prefix)
+
+
+
+def main():
+    # Run dialog
+    runner = SyncRunner(create_main_console())
     dialog = ProjectDialog(runner)
     project = dialog.run()
     print(project)
