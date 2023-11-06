@@ -1,22 +1,18 @@
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
-from typing import Any, Generic, TypeVar
+from dataclasses import dataclass, field
+from typing import ClassVar, Generic, TypeVar
 
-from merlin.display.display import Display
 from merlin.question_suite import QuestionSuite
+from merlin.dialog_runner.dialog_runner import DialogRunner
 
 T = TypeVar("T")
 
 
 @dataclass
 class Dialog(ABC, Generic[T]):
-    display: Display
-    question_suite: QuestionSuite
+    runner: DialogRunner
+    question_suite: ClassVar[QuestionSuite] = field(init=False)
 
     @abstractmethod
     def run(self) -> T:
         ...
-
-    def set_field(self, object: T, field: str, value: Any) -> T:
-        object.__dict__[field] = value
-        return object
