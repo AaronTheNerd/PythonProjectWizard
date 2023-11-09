@@ -1,4 +1,6 @@
 import os
+from contextlib import contextmanager
+
 from merlin.project import Project
 
 
@@ -29,3 +31,11 @@ class Directories:
     def make_dir(self, path: str) -> None:
         if not os.path.exists(path):
             os.mkdir(path)
+
+    @contextmanager
+    def set_cwd(self, path: str):
+        try:
+            os.chdir(path)
+            yield path
+        finally:
+            os.chdir(self.cwd)
