@@ -1,1 +1,1 @@
-# Merlin
+# The Python Project Wizard
