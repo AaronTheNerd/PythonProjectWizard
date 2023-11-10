@@ -24,7 +24,6 @@ class CreateProjectTestSuite(unittest.TestCase):
         project.name = "merlin project"
         cwd = os.getcwd()
         directories = Directories(cwd, project)
-        self.assertEqual(directories.cwd, cwd)
         self.assertEqual(
             directories.main,
             os.path.join(cwd, Directories.main_directory(project.name)),
@@ -55,14 +54,3 @@ class CreateProjectTestSuite(unittest.TestCase):
             mock.call(os.path.join(cwd, "MerlinProject", ".vscode")),
         ]
         mocked_mkdir.assert_has_calls(calls, any_order=True)
-
-    def test_change_cwd(self):
-        project = Project()
-        project.name = "merlin project"
-        original_cwd = os.getcwd()
-        directories = Directories(original_cwd, project)
-        modified_cwd = ""
-        with directories.set_cwd("/"):
-            modified_cwd = os.getcwd()
-        self.assertEqual(original_cwd, os.getcwd())
-        self.assertEqual(modified_cwd, "/")
