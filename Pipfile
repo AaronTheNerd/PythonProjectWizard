@@ -5,6 +5,10 @@ name = "pypi"
 
 [packages]
 black = "*"
+setuptools = "*"
+build = "*"
+wheel = "*"
+twine = "*"
 
 [dev-packages]
 

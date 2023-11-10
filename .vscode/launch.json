@@ -5,6 +5,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Build",
+      "type": "python",
+      "request": "launch",
+      "module": "build",
+      "justMyCode": true
+    },
+    {
       "name": "Format Code",
       "type": "python",
       "request": "launch",
