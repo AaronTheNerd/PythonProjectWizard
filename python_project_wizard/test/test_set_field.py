@@ -1,7 +1,7 @@
 import unittest
 from dataclasses import dataclass, field
 
-from merlin.utils.set_field import set_field
+from python_project_wizard.utils.set_field import set_field
 
 
 @dataclass

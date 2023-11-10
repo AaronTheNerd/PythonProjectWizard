@@ -1,7 +1,7 @@
 import os
 from contextlib import contextmanager
 
-from merlin.project import Project
+from python_project_wizard.project import Project
 
 
 class Directories:

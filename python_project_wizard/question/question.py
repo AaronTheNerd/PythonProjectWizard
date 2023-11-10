@@ -2,8 +2,8 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from typing import Optional
 
-from merlin.answer import Answer
-from merlin.exception import DefaultMissingException
+from python_project_wizard.answer import Answer
+from python_project_wizard.exception import DefaultMissingException
 
 
 @dataclass

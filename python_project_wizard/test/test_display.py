@@ -2,11 +2,11 @@ import unittest
 import unittest.mock as mock
 from dataclasses import dataclass
 
-from merlin.display.console import Console
-from merlin.display.display import Display
-from merlin.question.plain_question import PlainQuestion
-from merlin.question.bool_question import BoolQuestion
-from merlin.question.question import Question
+from python_project_wizard.display.console import Console
+from python_project_wizard.display.display import Display
+from python_project_wizard.question.plain_question import PlainQuestion
+from python_project_wizard.question.bool_question import BoolQuestion
+from python_project_wizard.question.question import Question
 
 
 @dataclass

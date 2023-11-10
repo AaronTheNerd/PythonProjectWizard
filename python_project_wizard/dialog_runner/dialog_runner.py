@@ -2,8 +2,8 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Generic, TypeVar
 
-from merlin.display.display import Display
-from merlin.question_suite import QuestionSuite
+from python_project_wizard.display.display import Display
+from python_project_wizard.question_suite import QuestionSuite
 
 T = TypeVar("T")
 

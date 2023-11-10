@@ -1,12 +1,12 @@
 from dataclasses import dataclass, field
 from typing import ClassVar
 
-from merlin.dialog.dialog import Dialog
-from merlin.project import Project
-from merlin.question.bool_question import BoolQuestion
-from merlin.question.plain_question import PlainQuestion
-from merlin.question.version_question import VersionQuestion
-from merlin.question_suite import QuestionSuite
+from python_project_wizard.dialog.dialog import Dialog
+from python_project_wizard.project import Project
+from python_project_wizard.question.bool_question import BoolQuestion
+from python_project_wizard.question.plain_question import PlainQuestion
+from python_project_wizard.question.version_question import VersionQuestion
+from python_project_wizard.question_suite import QuestionSuite
 
 
 project_question_suite = QuestionSuite(

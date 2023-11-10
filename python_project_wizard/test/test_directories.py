@@ -2,8 +2,8 @@ import os
 import unittest
 import unittest.mock as mock
 
-from merlin.directories import *
-from merlin.project import Project
+from python_project_wizard.directories import *
+from python_project_wizard.project import Project
 
 
 class CreateProjectTestSuite(unittest.TestCase):

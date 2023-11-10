@@ -2,17 +2,17 @@ import unittest
 import unittest.mock as mock
 from dataclasses import dataclass, field
 
-from merlin.dialog.project_dialog import ProjectDialog
-from merlin.display.display import Display
-from merlin.exception import DefaultMissingException
-from merlin.question.bool_question import BoolQuestion
-from merlin.question.plain_question import PlainQuestion
-from merlin.question.question import Question
-from merlin.question_suite import QuestionSuite
-from merlin.display.console import Console
-from merlin.dialog_runner.synchronous_runner import SyncRunner
-from merlin.dialog_runner.dialog_runner import DialogRunner
-from merlin.project import Project
+from python_project_wizard.dialog.project_dialog import ProjectDialog
+from python_project_wizard.display.display import Display
+from python_project_wizard.exception import DefaultMissingException
+from python_project_wizard.question.bool_question import BoolQuestion
+from python_project_wizard.question.plain_question import PlainQuestion
+from python_project_wizard.question.question import Question
+from python_project_wizard.question_suite import QuestionSuite
+from python_project_wizard.display.console import Console
+from python_project_wizard.dialog_runner.synchronous_runner import SyncRunner
+from python_project_wizard.dialog_runner.dialog_runner import DialogRunner
+from python_project_wizard.project import Project
 
 
 @dataclass

@@ -1,9 +1,9 @@
 import unittest
 
-from merlin.question.bool_question import BoolQuestion
-from merlin.question.plain_question import PlainQuestion
-from merlin.question.question import Question
-from merlin.question.version_question import VersionQuestion
+from python_project_wizard.question.bool_question import BoolQuestion
+from python_project_wizard.question.plain_question import PlainQuestion
+from python_project_wizard.question.question import Question
+from python_project_wizard.question.version_question import VersionQuestion
 
 
 class QuestionTestSuite(unittest.TestCase):

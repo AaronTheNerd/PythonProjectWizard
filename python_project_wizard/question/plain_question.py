@@ -1,5 +1,5 @@
-from merlin.answer import Answer
-from merlin.question.question import Question
+from python_project_wizard.answer import Answer
+from python_project_wizard.question.question import Question
 
 
 class PlainQuestion(Question):

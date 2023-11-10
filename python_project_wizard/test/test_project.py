@@ -1,6 +1,6 @@
 import unittest
 
-from merlin.project import Project
+from python_project_wizard.project import Project
 
 
 class ProjectTestSuite(unittest.TestCase):

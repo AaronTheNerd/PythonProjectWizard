@@ -1,8 +1,8 @@
-from merlin.dialog_runner.dialog_runner import DialogRunner
-from merlin.question.question import Question
-from merlin.question_suite import QuestionSuite
-from merlin.answer import Answer
-from merlin.utils.set_field import set_field
+from python_project_wizard.dialog_runner.dialog_runner import DialogRunner
+from python_project_wizard.question.question import Question
+from python_project_wizard.question_suite import QuestionSuite
+from python_project_wizard.answer import Answer
+from python_project_wizard.utils.set_field import set_field
 
 from typing import Generic, TypeVar
 

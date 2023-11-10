@@ -2,8 +2,8 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from typing import ClassVar, Generic, TypeVar
 
-from merlin.question_suite import QuestionSuite
-from merlin.dialog_runner.dialog_runner import DialogRunner
+from python_project_wizard.question_suite import QuestionSuite
+from python_project_wizard.dialog_runner.dialog_runner import DialogRunner
 
 T = TypeVar("T")
 

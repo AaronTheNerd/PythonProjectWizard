@@ -1,7 +1,7 @@
 import unittest
 
-from merlin.question.plain_question import PlainQuestion
-from merlin.question_suite import QuestionSuite
+from python_project_wizard.question.plain_question import PlainQuestion
+from python_project_wizard.question_suite import QuestionSuite
 
 
 class QuestionSuiteTestSuite(unittest.TestCase):

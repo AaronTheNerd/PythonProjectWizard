@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from merlin.question.question import Question
+from python_project_wizard.question.question import Question
 
 
 class Display(ABC):

@@ -2,10 +2,10 @@ import unittest
 import unittest.mock as mock
 from dataclasses import dataclass, field
 
-from merlin.dialog.dialog import Dialog
-from merlin.dialog.project_dialog import ProjectDialog
-from merlin.dialog_runner.synchronous_runner import SyncRunner
-from merlin.display.console import Console
+from python_project_wizard.dialog.dialog import Dialog
+from python_project_wizard.dialog.project_dialog import ProjectDialog
+from python_project_wizard.dialog_runner.synchronous_runner import SyncRunner
+from python_project_wizard.display.console import Console
 
 
 @dataclass

@@ -1,6 +1,6 @@
 import unittest
 
-from merlin.answer import Answer
+from python_project_wizard.answer import Answer
 
 
 class AnswerTestSuite(unittest.TestCase):
