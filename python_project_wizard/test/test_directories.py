@@ -6,7 +6,7 @@ from python_project_wizard.directories import *
 from python_project_wizard.project import Project
 
 
-class CreateProjectTestSuite(unittest.TestCase):
+class DirectoriesTestSuite(unittest.TestCase):
     def test_project_directory_name(self):
         self.assertEqual("Merlin", Directories.main_directory("Merlin"))
         self.assertEqual("Merlin", Directories.main_directory("merlin"))
