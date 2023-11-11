@@ -2,7 +2,7 @@ from python_project_wizard.dialog.project_dialog import ProjectDialog
 from python_project_wizard.display.console import Console
 from python_project_wizard.dialog_runner.synchronous_runner import SyncRunner
 from python_project_wizard.utils.console_text import ConsoleTextModifier, modify_text
-from python_project_wizard.build_python_project import build_python_project
+from python_project_wizard.build_project.build_project import build_python_project
 
 
 def create_main_console():
