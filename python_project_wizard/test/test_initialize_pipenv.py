@@ -4,8 +4,8 @@ import unittest.mock as mock
 
 import subprocess
 
-from python_project_wizard.directories import *
-from python_project_wizard.build_python_project import initialize_pipenv
+from python_project_wizard.build_project.directories import *
+from python_project_wizard.build_project.build_project import initialize_pipenv
 
 
 class InitializePipenvTestSuite(unittest.TestCase):
@@ -17,4 +17,6 @@ class InitializePipenvTestSuite(unittest.TestCase):
         cwd = os.getcwd()
         dirs = Directories(cwd, project)
         initialize_pipenv(project, dirs)
-        mocked_run.assert_any_call(["pipenv", "install", "--python", "3.10"], cwd=dirs.main)
+        mocked_run.assert_any_call(
+            ["pipenv", "install", "--python", "3.10"], cwd=dirs.main
+        )
