@@ -4,13 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+
+[dev-packages]
 black = "*"
 setuptools = "*"
 build = "*"
 wheel = "*"
 twine = "*"
-
-[dev-packages]
 
 [requires]
 python_version = "3.10"
