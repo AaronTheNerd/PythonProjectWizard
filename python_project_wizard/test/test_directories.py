@@ -2,7 +2,7 @@ import os
 import unittest
 import unittest.mock as mock
 
-from python_project_wizard.directories import *
+from python_project_wizard.build_project.directories import *
 from python_project_wizard.project import Project
 
 
