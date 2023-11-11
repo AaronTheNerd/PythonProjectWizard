@@ -17,7 +17,7 @@
       "request": "launch",
       "module": "black",
       "justMyCode": true,
-      "args": ["merlin"]
+      "args": ["python_project_wizard"]
     },
     {
       "name": "Run Test Suite",
@@ -30,7 +30,7 @@
       "name": "Launch",
       "type": "python",
       "request": "launch",
-      "module": "merlin.main",
+      "module": "python_project_wizard.main",
       "justMyCode": true
     }
   ]
