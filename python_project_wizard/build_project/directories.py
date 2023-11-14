@@ -8,7 +8,6 @@ class Directories:
         self.main = os.path.join(cwd, self.main_directory(project.name))
         self.source = os.path.join(self.main, self.source_directory(project.name))
         self.dot_vscode = os.path.join(self.main, ".vscode")
-        self.build()
 
     @staticmethod
     def main_directory(name: str) -> str:

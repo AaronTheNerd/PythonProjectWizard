@@ -1,4 +1,5 @@
 import os
+import shutil
 import unittest
 import unittest.mock as mock
 
@@ -23,6 +24,7 @@ class DirectoriesTestSuite(unittest.TestCase):
         project = Project()
         project.name = "merlin project"
         cwd = os.getcwd()
+        shutil.rmtree(os.path.join(cwd, Directories.main_directory(project.name)), ignore_errors=True)
         directories = Directories(cwd, project)
         self.assertEqual(
             directories.main,
@@ -40,6 +42,7 @@ class DirectoriesTestSuite(unittest.TestCase):
             directories.dot_vscode,
             os.path.join(cwd, Directories.main_directory(project.name), ".vscode"),
         )
+        shutil.rmtree(directories.main, ignore_errors=True)
 
     @mock.patch("os.mkdir")
     def test_build(self, mocked_mkdir: mock.Mock):
