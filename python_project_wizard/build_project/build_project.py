@@ -17,7 +17,7 @@ from python_project_wizard.project import Project
 # 7. If unittest was added, add a launch.json config for running
 # 8. If black formatting was added, pipenv install black and add a launch.json config
 # 9. Modify main.py to import and initialize the add-ons
-def build_python_project(project: Project):
+def build_project(project: Project):
     directories = build_directories()
     initialize_pipenv(project, directories)
     build_files(project, directories)
