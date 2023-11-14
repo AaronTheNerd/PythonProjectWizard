@@ -18,13 +18,23 @@ from python_project_wizard.project import Project
 # 8. If black formatting was added, pipenv install black and add a launch.json config
 # 9. Modify main.py to import and initialize the add-ons
 def build_python_project(project: Project):
+    directories = build_directories()
+    initialize_pipenv(project, directories)
+    build_files(project, directories)
+
+
+def build_directories(project: Project) -> Directories:
     cwd = os.getcwd()
     directories = Directories(cwd, project)
-    initialize_pipenv(project, directories)
-    build_file(os.path.join(directories.main, "README.md"), f"# {project.name}")
+    directories.build()
+    return directories
 
 
 def initialize_pipenv(project: Project, directories: Directories):
     subprocess.run(
         ["pipenv", "install", "--python", project.python_version], cwd=directories.main
     )
+
+
+def build_files(project: Project, directories: Directories):
+    build_file(os.path.join(directories.main, "README.md"), f"# {project.name}")
