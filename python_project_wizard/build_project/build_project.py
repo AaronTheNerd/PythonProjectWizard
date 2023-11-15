@@ -28,6 +28,3 @@ def build_directories(project: Project) -> Directories:
     directories = Directories(cwd, project)
     directories.build()
     return directories
-
-
-

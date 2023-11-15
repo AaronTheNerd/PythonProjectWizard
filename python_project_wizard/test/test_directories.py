@@ -48,7 +48,7 @@ class DirectoriesTestSuite(unittest.TestCase):
 
     @mock.patch("os.mkdir")
     def test_build(self, mocked_mkdir: mock.Mock):
-        project = Project(name = "merlin project")
+        project = Project(name="merlin project")
         cwd = os.getcwd()
         directories = Directories(cwd, project)
         directories.build()
