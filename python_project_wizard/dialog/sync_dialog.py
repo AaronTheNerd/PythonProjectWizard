@@ -1,20 +1,20 @@
-from python_project_wizard.dialog_runner.dialog_runner import DialogRunner
-from python_project_wizard.question.question import Question
-from python_project_wizard.question_suite import QuestionSuite
-from python_project_wizard.answer import Answer
-from python_project_wizard.utils.set_field import set_field
-
+from dataclasses import fields
 from typing import Generic, TypeVar
+
+from python_project_wizard.answer import Answer
+from python_project_wizard.dialog.dialog import Dialog
+from python_project_wizard.field import set_field
+from python_project_wizard.question.question import Question
 
 T = TypeVar("T")
 
 
-class SyncRunner(DialogRunner[T], Generic[T]):
-    def run(self, obj: T, suite: QuestionSuite) -> T:
-        for field_name, question in suite.field_to_question.items():
-            answer = self.prompt_user_until_answer_provided(question)
-            obj = set_field(obj, field_name, answer.value)
-        return obj
+class SyncDialog(Dialog, Generic[T]):
+    def run(self, result: T) -> T:
+        for field in fields(result):
+            answer = self.prompt_user_until_answer_provided(field.metadata["question"])
+            result = set_field(result, field.name, answer.value)
+        return result
 
     def prompt_user_until_answer_provided(self, question: Question) -> Answer:
         answer = None

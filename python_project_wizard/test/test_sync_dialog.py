@@ -1,18 +1,18 @@
 import unittest
 import unittest.mock as mock
 from dataclasses import dataclass, field
+from typing import Any
 
-from python_project_wizard.dialog.project_dialog import ProjectDialog
+from python_project_wizard.dialog.dialog import Dialog
+from python_project_wizard.dialog.sync_dialog import SyncDialog
+from python_project_wizard.display.console import Console
 from python_project_wizard.display.display import Display
 from python_project_wizard.exception import DefaultMissingException
+from python_project_wizard.field import question_field
+from python_project_wizard.project import Project
 from python_project_wizard.question.bool_question import BoolQuestion
 from python_project_wizard.question.plain_question import PlainQuestion
 from python_project_wizard.question.question import Question
-from python_project_wizard.question_suite import QuestionSuite
-from python_project_wizard.display.console import Console
-from python_project_wizard.dialog_runner.synchronous_runner import SyncRunner
-from python_project_wizard.dialog_runner.dialog_runner import DialogRunner
-from python_project_wizard.project import Project
 
 
 @dataclass
@@ -35,16 +35,47 @@ class ErrorTestDisplay(Display):
         self.errors.append(exception)
 
 
-class DialogRunnerTestSuite(unittest.TestCase):
+@dataclass
+class TestProject:
+    name: str = question_field(PlainQuestion("Name?"))
+    python_version: str = question_field(PlainQuestion("Version?"))
+    use_black_formatting: bool = question_field(BoolQuestion("Black?"))
+    use_logging: bool = question_field(BoolQuestion("Logging?"))
+    use_unittest: bool = question_field(BoolQuestion("Unit Tests?"))
+    use_configs: bool = question_field(BoolQuestion("Configs?", "Y"))
+    use_args: bool = question_field(BoolQuestion("Arguments?", "N"))
+
+
+class SyncDialogTestSuite(unittest.TestCase):
     def test_constructor(self):
-        self.assertIsInstance(SyncRunner(Console()), DialogRunner)
+        self.assertIsInstance(SyncDialog[Project](Console()), Dialog)
+
+    def test_run(self):
+        test_inputs = [
+            "Merlin",  # Name
+            "3.10",  # Version
+            "Y",  # Black formatting
+            "Y",  # Logging
+            "N",  # Unit test
+            "Y",  # Configs
+            "Y",  # args
+        ]
+        dialog = SyncDialog[Project](Console())
+        with mock.patch("builtins.input", side_effect=test_inputs):
+            project = dialog.run(Project())
+            self.assertEqual(project.name, "Merlin")
+            self.assertEqual(project.python_version, "3.10")
+            self.assertEqual(project.use_black_formatting, True)
+            self.assertEqual(project.use_logging, True)
+            self.assertEqual(project.use_unittest, False)
+            self.assertEqual(project.use_configs, True)
+            self.assertEqual(project.use_args, True)
 
     def test_get_answer_validator_return_value(self):
         test_input = "Yes"
-        display = Console()
-        runner = SyncRunner(display)
+        dialog = SyncDialog[bool](Console())
         with mock.patch("builtins.input", return_value=test_input):
-            answer = runner.prompt_user_until_answer_provided(
+            answer = dialog.prompt_user_until_answer_provided(
                 BoolQuestion("Do you use VSCode?")
             )
             self.assertIsInstance(answer.value, bool)
@@ -52,10 +83,9 @@ class DialogRunnerTestSuite(unittest.TestCase):
 
     def test_get_answer_two_prompts_on_error(self):
         test_inputs = ["huh", "N"]
-        display = Console()
-        runner = SyncRunner(display)
+        dialog = SyncDialog[bool](Console())
         with mock.patch("builtins.input", side_effect=test_inputs):
-            answer = runner.prompt_user_until_answer_provided(
+            answer = dialog.prompt_user_until_answer_provided(
                 BoolQuestion("Do you use VSCode?")
             )
             self.assertIsInstance(answer.value, bool)
@@ -63,10 +93,9 @@ class DialogRunnerTestSuite(unittest.TestCase):
 
     def test_error_on_blank_with_no_default(self):
         test_inputs = ["", "Merlin"]
-        display = Console()
-        runner = SyncRunner(display)
+        dialog = SyncDialog[str](Console())
         with mock.patch("builtins.input", side_effect=test_inputs):
-            answer = runner.prompt_user_until_answer_provided(PlainQuestion("Name?"))
+            answer = dialog.prompt_user_until_answer_provided(PlainQuestion("Name?"))
             self.assertIsInstance(answer.value, str)
             self.assertEqual(answer.value, "Merlin")
 
@@ -85,20 +114,9 @@ class DialogRunnerTestSuite(unittest.TestCase):
         ]
         expected_errors = [DefaultMissingException, DefaultMissingException, ValueError]
         display = ErrorTestDisplay()
-        question_suite = QuestionSuite(
-            {
-                "name": PlainQuestion("Name?"),
-                "python_version": PlainQuestion("Version?"),
-                "use_black_formatting": BoolQuestion("Black?"),
-                "use_logging": BoolQuestion("Logging?"),
-                "use_unittest": BoolQuestion("Unit Tests?"),
-                "use_configs": BoolQuestion("Configs?", "Y"),
-                "use_args": BoolQuestion("Arguments?", "N"),
-            }
-        )
-        runner = SyncRunner(display)
+        dialog = SyncDialog[TestProject](display)
         with mock.patch("builtins.input", side_effect=test_inputs):
-            runner.run(Project(), question_suite)
+            dialog.run(TestProject())
             self.assertEqual(len(expected_errors), len(display.errors))
             for i in range(len(expected_errors)):
                 self.assertIsInstance(display.errors[i], expected_errors[i])

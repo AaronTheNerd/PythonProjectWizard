@@ -1,8 +1,9 @@
-from python_project_wizard.dialog.project_dialog import ProjectDialog
-from python_project_wizard.display.console import Console
-from python_project_wizard.dialog_runner.synchronous_runner import SyncRunner
-from python_project_wizard.utils.console_text import ConsoleTextModifier, modify_text
 from python_project_wizard.build_project.build_project import build_project
+from python_project_wizard.dialog.sync_dialog import SyncDialog
+from python_project_wizard.display.console import Console
+from python_project_wizard.display.console_text import (ConsoleTextModifier,
+                                                        modify_text)
+from python_project_wizard.project import Project
 
 
 def create_main_console():
@@ -20,8 +21,8 @@ def create_main_console():
 
 def main():
     console = create_main_console()
-    dialog = ProjectDialog(SyncRunner(console))
-    project = dialog.run()
+    dialog = SyncDialog[Project](console)
+    project = dialog.run(Project())
     build_project(project)
 
 

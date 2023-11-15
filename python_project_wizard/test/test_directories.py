@@ -24,7 +24,10 @@ class DirectoriesTestSuite(unittest.TestCase):
         project = Project()
         project.name = "merlin project"
         cwd = os.getcwd()
-        shutil.rmtree(os.path.join(cwd, Directories.main_directory(project.name)), ignore_errors=True)
+        shutil.rmtree(
+            os.path.join(cwd, Directories.main_directory(project.name)),
+            ignore_errors=True,
+        )
         directories = Directories(cwd, project)
         self.assertEqual(
             directories.main,

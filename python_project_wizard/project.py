@@ -1,12 +1,23 @@
-from dataclasses import dataclass, field
+from python_project_wizard.question.plain_question import PlainQuestion
+from python_project_wizard.question.bool_question import BoolQuestion
+from python_project_wizard.question.version_question import VersionQuestion
+from python_project_wizard.field import question_field
+
+from dataclasses import dataclass
 
 
 @dataclass
 class Project:
-    name: str = field(init=False)
-    python_version: str = field(init=False)
-    use_black_formatting: bool = field(init=False)
-    use_logging: bool = field(init=False)
-    use_unittest: bool = field(init=False)
-    use_configs: bool = field(init=False)
-    use_args: bool = field(init=False)
+    name: str = question_field(PlainQuestion("What is the name of your Project?"))
+    python_version: str = question_field(
+        VersionQuestion("What version of Python?", default="3.10"),
+    )
+    use_black_formatting: bool = question_field(
+        BoolQuestion("Add Black formatting to your project?", default="Y"),
+    )
+    use_logging: bool = question_field(
+        BoolQuestion("Logging?", default="Y"),
+    )
+    use_unittest: bool = question_field(BoolQuestion("Unit Tests?", default="Y"))
+    use_configs: bool = question_field(BoolQuestion("Configs?", default="Y"))
+    use_args: bool = question_field(BoolQuestion("Arguments?", default="N"))
