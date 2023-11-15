@@ -13,11 +13,11 @@ class Project:
         VersionQuestion("What version of Python?", default="3.10"),
     )
     use_black_formatting: bool = question_field(
-        BoolQuestion("Add Black formatting to your project?", default="Y"),
+        BoolQuestion("Add Black formatting?", default="Y"),
     )
     use_logging: bool = question_field(
-        BoolQuestion("Logging?", default="Y"),
+        BoolQuestion("Add logging?", default="Y"),
     )
-    use_unittest: bool = question_field(BoolQuestion("Unit Tests?", default="Y"))
-    use_configs: bool = question_field(BoolQuestion("Configs?", default="Y"))
-    use_args: bool = question_field(BoolQuestion("Arguments?", default="N"))
+    use_unittest: bool = question_field(BoolQuestion("Add Unit Tests?", default="Y"))
+    use_configs: bool = question_field(BoolQuestion("Add configs?", default="Y"))
+    use_args: bool = question_field(BoolQuestion("Add arguments?", default="N"))
