@@ -22,9 +22,14 @@ class DisplayTestSuite(unittest.TestCase):
         self.assertIsInstance(Console(">", "[ERROR]"), Display)
 
     def test_prompt_return(self):
+        with mock.patch("builtins.print") as mocked_print:
+            Console().prompt(PlainQuestion("Test?"))
+            mocked_print.assert_has_calls([mock.call("Test? ")])
+
+    def test_get_input_return(self):
         test_input = "Aaron"
         with mock.patch("builtins.input", return_value=test_input):
-            raw_input = Console().prompt(PlainQuestion("Name?"))
+            raw_input = Console().get_input()
             self.assertIsInstance(raw_input, str)
             self.assertEqual(raw_input, test_input)
 

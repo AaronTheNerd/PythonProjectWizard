@@ -9,12 +9,17 @@ class Console(Display):
     shell_prompt: str = ""
     error_prefix: str = ""
 
-    def prompt(self, question: Question) -> str:
+    def prompt(self, question: Question) -> None:
         default_string = self.get_default_string(question)
-        return input(f"{self.shell_prompt} {question.prompt}{f' {default_string}'} ")
-
-    def display_error(self, exception: Exception) -> None:
-        print(f"{self.error_prefix} {str(exception)}")
+        question_string = f"{self.shell_prompt} {question.prompt}{f' {default_string}'}"
+        question_string = question_string.strip()
+        return print(f"{question_string} ")
 
     def get_default_string(self, question: Question) -> str:
         return f"[{question.default.upper()}]" if question.default is not None else ""
+
+    def get_input(self) -> str:
+        return input()
+
+    def display_error(self, exception: Exception) -> None:
+        print(f"{self.error_prefix} {str(exception)}")

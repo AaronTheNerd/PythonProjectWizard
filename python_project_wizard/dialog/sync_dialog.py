@@ -30,5 +30,6 @@ class SyncDialog(Dialog, Generic[T]):
             return None
 
     def get_input_from_user(self, question: Question) -> Answer:
-        raw_input = self.display.prompt(question)
+        self.display.prompt(question)
+        raw_input = self.display.get_input()
         return question.validate_raw_input(raw_input)
