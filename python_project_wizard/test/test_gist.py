@@ -1,8 +1,9 @@
 import unittest
 import unittest.mock as mock
 
-from python_project_wizard.gist.gist import *
 from python_project_wizard.gist.get_gist import *
+from python_project_wizard.gist.gist import *
+
 
 class GistTestSuite(unittest.TestCase):
     def test_gist_file(self):
