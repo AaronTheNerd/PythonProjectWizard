@@ -21,8 +21,7 @@ class DirectoriesTestSuite(unittest.TestCase):
         )
 
     def test_constructor(self):
-        project = Project()
-        project.name = "merlin project"
+        project = Project(name="merlin project")
         cwd = os.getcwd()
         shutil.rmtree(
             os.path.join(cwd, Directories.main_directory(project.name)),
@@ -49,8 +48,7 @@ class DirectoriesTestSuite(unittest.TestCase):
 
     @mock.patch("os.mkdir")
     def test_build(self, mocked_mkdir: mock.Mock):
-        project = Project()
-        project.name = "merlin project"
+        project = Project(name = "merlin project")
         cwd = os.getcwd()
         directories = Directories(cwd, project)
         directories.build()

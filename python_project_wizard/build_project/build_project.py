@@ -1,8 +1,8 @@
 import os
-import subprocess
 
+from python_project_wizard.build_project.build_files import build_files
 from python_project_wizard.build_project.directories import Directories
-from python_project_wizard.build_project.file import build_file
+from python_project_wizard.build_project.pipenv import initialize_pipenv
 from python_project_wizard.project import Project
 
 
@@ -30,11 +30,4 @@ def build_directories(project: Project) -> Directories:
     return directories
 
 
-def initialize_pipenv(project: Project, directories: Directories):
-    subprocess.run(
-        ["pipenv", "install", "--python", project.python_version], cwd=directories.main
-    )
 
-
-def build_files(project: Project, directories: Directories):
-    build_file(os.path.join(directories.main, "README.md"), f"# {project.name}")

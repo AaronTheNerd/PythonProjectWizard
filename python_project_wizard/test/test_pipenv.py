@@ -5,15 +5,13 @@ import unittest.mock as mock
 import subprocess
 
 from python_project_wizard.build_project.directories import *
-from python_project_wizard.build_project.build_project import initialize_pipenv
+from python_project_wizard.build_project.pipenv import initialize_pipenv
 
 
-class InitializePipenvTestSuite(unittest.TestCase):
+class PipenvTestSuite(unittest.TestCase):
     @mock.patch("subprocess.run")
     def test_initialize_pipenv(self, mocked_run: mock.Mock):
-        project = Project()
-        project.name = "merlin project"
-        project.python_version = "3.10"
+        project = Project(name="merlin project", python_version="3.10")
         cwd = os.getcwd()
         dirs = Directories(cwd, project)
         initialize_pipenv(project, dirs)
