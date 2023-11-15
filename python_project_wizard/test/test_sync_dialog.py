@@ -11,6 +11,7 @@ from python_project_wizard.question.bool_question import BoolQuestion
 from python_project_wizard.question.plain_question import PlainQuestion
 from python_project_wizard.question.question import Question
 
+
 @dataclass
 class TestDisplay(Display):
     inputs: list[str] = field(default_factory=list)
@@ -19,14 +20,15 @@ class TestDisplay(Display):
 
     def prompt(self, question: Question) -> None:
         return
-    
+
     def get_input(self) -> str:
         result = self.inputs[self.index]
         self.index += 1
         return result
-    
+
     def display_error(self, exception: Exception) -> None:
         self.errors.append(exception)
+
 
 @dataclass
 class TestProject:
