@@ -1,8 +1,7 @@
 from python_project_wizard.build_project.build_project import build_project
 from python_project_wizard.dialog.sync_dialog import SyncDialog
 from python_project_wizard.display.console import Console
-from python_project_wizard.display.console_text import (ConsoleTextModifier,
-                                                        modify_text)
+from python_project_wizard.display.console_text import ConsoleTextModifier, modify_text
 from python_project_wizard.project import Project
 
 
