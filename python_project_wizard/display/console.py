@@ -13,7 +13,7 @@ class Console(Display):
         default_string = self.get_default_string(question)
         question_string = f"{self.shell_prompt} {question.prompt}{f' {default_string}'}"
         question_string = question_string.strip()
-        return print(f"{question_string} ")
+        return print(f"{question_string} ", end="")
 
     def get_default_string(self, question: Question) -> str:
         return f"[{question.default.upper()}]" if question.default is not None else ""

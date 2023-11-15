@@ -24,7 +24,7 @@ class DisplayTestSuite(unittest.TestCase):
     def test_prompt_return(self):
         with mock.patch("builtins.print") as mocked_print:
             Console().prompt(PlainQuestion("Test?"))
-            mocked_print.assert_has_calls([mock.call("Test? ")])
+            mocked_print.assert_has_calls([mock.call("Test? ", end="")])
 
     def test_get_input_return(self):
         test_input = "Aaron"
