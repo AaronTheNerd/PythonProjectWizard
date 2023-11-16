@@ -21,10 +21,10 @@ class PipenvTestSuite(unittest.TestCase):
 
     @mock.patch("subprocess.run")
     def test_install_pipenv_package(self, mocked_run: mock.Mock):
-        project = Project(name="merlin project", python_version="3.10", use_black_formatting=True)
+        project = Project(
+            name="merlin project", python_version="3.10", use_black_formatting=True
+        )
         cwd = os.getcwd()
         dirs = Directories(cwd, project)
         install_packages(project, dirs)
-        mocked_run.assert_any_call(
-            ["pipenv", "install", "-d", "black"], cwd=dirs.main
-        )
+        mocked_run.assert_any_call(["pipenv", "install", "-d", "black"], cwd=dirs.main)
