@@ -20,11 +20,16 @@ class BuildFilesTestSuite(unittest.TestCase):
         project = Project(name="merlin project")
         directories = Directories(os.getcwd(), project)
         build_static_files(project, directories)
-        mocked_build.assert_any_call(os.path.join(directories.main, "README.md"), "# Merlin Project")
+        mocked_build.assert_any_call(
+            os.path.join(directories.main, "README.md"), "# Merlin Project"
+        )
 
     @mock.patch("python_project_wizard.build_project.build_files.build_file")
     def test_build_launch_json(self, mockec_build: mock.Mock):
         project = Project(name="merlin project")
         directories = Directories(os.getcwd(), project)
         build_launch_json(project, directories)
-        mockec_build.assert_any_call(os.path.join(directories.dot_vscode, "launch.json"), get_launch_json_content(project))
+        mockec_build.assert_any_call(
+            os.path.join(directories.dot_vscode, "launch.json"),
+            get_launch_json_content(project),
+        )
