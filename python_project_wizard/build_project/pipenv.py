@@ -4,6 +4,11 @@ from python_project_wizard.build_project.directories import Directories
 from python_project_wizard.project import Project
 
 
+def create_pipenv(project: Project, directories: Directories) -> None:
+    initialize_pipenv(project, directories)
+    install_packages(project, directories)
+
+
 def initialize_pipenv(project: Project, directories: Directories) -> None:
     subprocess.run(
         ["pipenv", "install", "--python", project.python_version], cwd=directories.main
