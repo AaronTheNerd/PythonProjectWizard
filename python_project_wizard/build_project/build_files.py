@@ -1,31 +1,64 @@
 import os
+from dataclasses import fields, Field
 
 from python_project_wizard.build_project.directories import Directories
 from python_project_wizard.build_project.get_launch_json_content import (
     get_launch_json_content,
 )
+from python_project_wizard.field import get_field_value
+from python_project_wizard.file_content_store.file_content_store import FileContentStore
+from python_project_wizard.file_content_store.gist_store import GistStore
 from python_project_wizard.project import Project
+from python_project_wizard.file import File, Destination
+from python_project_wizard.build_project.file_builder import FileBuilder
 
 
-def build_files(project: Project, directories: Directories) -> None:
-    build_static_files(project, directories)
-    build_launch_json(project, directories)
-    build_gist_files(project, directories)
+def get_and_build_files(project: Project, directories: Directories) -> None:
+    files = get_files(project)
+    build_files(files, FileBuilder(directories))
 
 
-def build_static_files(project: Project, directories: Directories) -> None:
-    build_file(os.path.join(directories.main, "README.md"), f"# {project.name.title()}")
+def get_files(project: Project) -> list[File]:
+    files = get_static_files(project)
+    files.append(get_launch_json(project))
+    files += get_files_from_store(project, GistStore())
+    return files
 
 
-def build_launch_json(project: Project, directories: Directories) -> None:
-    content = get_launch_json_content(project)
-    build_file(os.path.join(directories.dot_vscode, "launch.json"), content)
+def get_static_files(project: Project) -> list[File]:
+    return [
+        File(
+            filename="README.md",
+            content=f"# {project.name.title()}",
+            destination=Destination.MAIN,
+        )
+    ]
 
 
-def build_gist_files(project: Project, directories: Directories) -> None:
-    ...
+def get_launch_json(project: Project) -> File:
+    return File(
+        filename="launch.json",
+        content=get_launch_json_content(project),
+        destination=Destination.VS_CODE,
+    )
 
 
-def build_file(path: str, content: str) -> None:
-    with open(path, "w+") as file:
-        file.write(content)
+def get_files_from_store(project: Project, store: FileContentStore) -> list[File]:
+    stored_file_content = store.get_file_content()
+    requested_files = get_requested_files(project)
+    for file in requested_files:
+        file.content = stored_file_content[file.filename]
+    return requested_files
+
+
+def get_requested_files(project: Project) -> list[File]:
+    result = []
+    for field in fields(project):
+        if get_field_value(project, field.name):
+            result += field.metadata["files"]
+    return result
+
+
+def build_files(files: list[File], builder: FileBuilder) -> None:
+    for file in files:
+        builder.build(file)

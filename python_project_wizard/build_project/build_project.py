@@ -26,7 +26,6 @@ def build_project(project: Project):
 
 
 def build_directories(project: Project) -> Directories:
-    cwd = os.getcwd()
-    directories = Directories(cwd, project)
+    directories = Directories(project)
     directories.build()
     return directories

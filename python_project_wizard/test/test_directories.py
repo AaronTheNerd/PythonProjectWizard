@@ -16,7 +16,7 @@ class DirectoriesTestSuite(unittest.TestCase):
             os.path.join(cwd, main_directory(project.name)),
             ignore_errors=True,
         )
-        directories = Directories(cwd, project)
+        directories = Directories(project)
         self.assertEqual(
             directories.main,
             os.path.join(cwd, main_directory(project.name)),
@@ -39,7 +39,7 @@ class DirectoriesTestSuite(unittest.TestCase):
     def test_build(self, mocked_mkdir: mock.Mock):
         project = Project(name="merlin project")
         cwd = os.getcwd()
-        directories = Directories(cwd, project)
+        directories = Directories(project)
         directories.build()
         calls = [
             mock.call(os.path.join(cwd, "MerlinProject")),
