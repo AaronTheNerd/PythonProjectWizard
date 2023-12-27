@@ -152,6 +152,43 @@ if __name__ == '__main__':
             )
         )
 
+    def test_get_main_directory_files_with_cleaning(self):
+        project = Project(name="merlin project", use_configs=True)
+        test_files = {
+            "main.py": '''"""ppw: use_args-from args import get_argparser
+""""""ppw: use_configs-from configs import load_configs
+""""""ppw: use_logging-from log import enable_logging
+import logging
+"""''',
+            "configs.json": "{}",
+            "configs.py": "# Configs file",
+        }
+        store = TestStore(test_files)
+        files = get_files_from_store(project, store)
+        self.assertTrue(
+            unordered_equal(
+                files,
+                [
+                    File(
+                        filename="main.py",
+                        content='''from configs import load_configs
+''',
+                        destination=Destination.SOURCE,
+                    ),
+                    File(
+                        filename="configs.json",
+                        content="{}",
+                        destination=Destination.MAIN,
+                    ),
+                    File(
+                        filename="configs.py",
+                        content="# Configs file",
+                        destination=Destination.SOURCE,
+                    ),
+                ],
+            )
+        )
+
     def test_build_files(self):
         files = [
             File(
