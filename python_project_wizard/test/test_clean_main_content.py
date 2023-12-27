@@ -4,6 +4,7 @@ import unittest.mock as mock
 from python_project_wizard.build_project.clean_main_content import clean_main_content
 from python_project_wizard.project import Project
 
+
 class BuildFilesTestSuite(unittest.TestCase):
     def test_one_removal(self):
         project = Project(name="merlin project")
@@ -77,7 +78,9 @@ if __name__ == "__main__":
         self.assertEqual(new_content, expected_content)
 
     def test_full_inclusion(self):
-        project = Project(name="merlin project", use_logging=True, use_args=True, use_configs=True)
+        project = Project(
+            name="merlin project", use_logging=True, use_args=True, use_configs=True
+        )
         content = '''"""ppw: use_args-from args import get_argparser"""
 """ppw: use_configs-from configs import load_configs"""
 """ppw: use_logging-from log import enable_logging

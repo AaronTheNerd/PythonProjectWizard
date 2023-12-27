@@ -4,6 +4,7 @@ import re
 from python_project_wizard.project import Project
 from python_project_wizard.field import get_field_value
 
+
 def clean_main_content(content: str, project: Project) -> str:
     for field in fields(project):
         template_pattern = f'"""ppw: {field.name}-(.*?)"""'

@@ -171,8 +171,8 @@ import logging
                 [
                     File(
                         filename="main.py",
-                        content='''from configs import load_configs
-''',
+                        content="""from configs import load_configs
+""",
                         destination=Destination.SOURCE,
                     ),
                     File(
