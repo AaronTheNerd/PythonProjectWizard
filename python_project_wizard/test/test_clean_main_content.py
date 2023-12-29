@@ -81,9 +81,9 @@ if __name__ == "__main__":
         project = Project(
             name="merlin project", use_logging=True, use_args=True, use_configs=True
         )
-        content = '''"""ppw: use_args-from args import get_argparser"""
-"""ppw: use_configs-from configs import load_configs"""
-"""ppw: use_logging-from log import enable_logging
+        content = '''"""ppw: use_args-from {project_name}.args import get_argparser"""
+"""ppw: use_configs-from {project_name}.configs import load_configs"""
+"""ppw: use_logging-from {project_name}.log import enable_logging
 import logging"""
 
 def main():
@@ -106,9 +106,9 @@ def main():
 if __name__ == "__main__":
     main()
 '''
-        expected_content = '''from args import get_argparser
-from configs import load_configs
-from log import enable_logging
+        expected_content = '''from merlin_project.args import get_argparser
+from merlin_project.configs import load_configs
+from merlin_project.log import enable_logging
 import logging
 
 def main():
@@ -136,9 +136,9 @@ if __name__ == "__main__":
 
     def test_full_exclusion(self):
         project = Project(name="merlin project")
-        content = '''"""ppw: use_args-from args import get_argparser"""
-"""ppw: use_configs-from configs import load_configs"""
-"""ppw: use_logging-from log import enable_logging
+        content = '''"""ppw: use_args-from {project_name}.args import get_argparser"""
+"""ppw: use_configs-from {project_name}.configs import load_configs"""
+"""ppw: use_logging-from {project_name}.log import enable_logging
 import logging"""
 
 def main():
