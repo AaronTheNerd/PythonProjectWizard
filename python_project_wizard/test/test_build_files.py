@@ -77,6 +77,11 @@ class BuildFilesTestSuite(unittest.TestCase):
                     filename="README.md",
                     content="# Merlin Project",
                     destination=Destination.MAIN,
+                ),
+                File(
+                    filename="__init__.py",
+                    content="",
+                    destination=Destination.SOURCE
                 )
             ],
         )
