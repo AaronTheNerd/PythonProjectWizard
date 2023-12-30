@@ -79,10 +79,8 @@ class BuildFilesTestSuite(unittest.TestCase):
                     destination=Destination.MAIN,
                 ),
                 File(
-                    filename="__init__.py",
-                    content="",
-                    destination=Destination.SOURCE
-                )
+                    filename="__init__.py", content="", destination=Destination.SOURCE
+                ),
             ],
         )
 
@@ -132,7 +130,7 @@ if __name__ == '__main__':
             "configs.json": "{}",
             "configs.py": "# Configs file",
             "__init__.py": "",
-            "test_example.py": "# Test Example"
+            "test_example.py": "# Test Example",
         }
         store = TestStore(test_files)
         files = get_files_from_store(project, store)
@@ -156,15 +154,13 @@ if __name__ == '__main__':
                         destination=Destination.SOURCE,
                     ),
                     File(
-                        filename="__init__.py",
-                        content="",
-                        destination=Destination.TEST
+                        filename="__init__.py", content="", destination=Destination.TEST
                     ),
                     File(
                         filename="test_example.py",
                         content="# Test Example",
-                        destination=Destination.TEST
-                    )
+                        destination=Destination.TEST,
+                    ),
                 ],
             )
         )

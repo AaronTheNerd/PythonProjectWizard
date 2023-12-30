@@ -34,7 +34,6 @@ class DirectoriesTestSuite(unittest.TestCase):
                 cwd,
                 main_directory(project.name),
                 source_directory(project.name),
-                "test"
-            )
+                "test",
+            ),
         )
-

@@ -11,4 +11,3 @@ class Directories:
         self.source = os.path.join(self.main, source_directory(project.name))
         self.dot_vscode = os.path.join(self.main, ".vscode")
         self.test = os.path.join(self.source, "test")
-

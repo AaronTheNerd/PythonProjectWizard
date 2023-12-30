@@ -32,7 +32,7 @@ class Project:
         files=[
             File(filename="__init__.py", destination=Destination.TEST),
             File(filename="test_example.py", destination=Destination.TEST),
-        ]
+        ],
     )
     use_configs: bool = question_field(
         BoolQuestion("Add configs?", default="Y"),

@@ -36,7 +36,11 @@ class FileBuilderTestSuite(unittest.TestCase):
             ),
             File(filename="config.json", content="{}", destination=Destination.MAIN),
             File(filename="launch.json", content="{}", destination=Destination.VS_CODE),
-            File(filename="test_example.py", content="# Test Example", destination=Destination.TEST)
+            File(
+                filename="test_example.py",
+                content="# Test Example",
+                destination=Destination.TEST,
+            ),
         ]
         for file in test_files:
             file_builder.build(file)

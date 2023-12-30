@@ -33,11 +33,7 @@ def get_static_files(project: Project) -> list[File]:
             content=f"# {project.name.title()}",
             destination=Destination.MAIN,
         ),
-        File(
-            filename="__init__.py",
-            content="",
-            destination=Destination.SOURCE
-        )
+        File(filename="__init__.py", content="", destination=Destination.SOURCE),
     ]
 
 
