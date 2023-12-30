@@ -8,12 +8,6 @@ from python_project_wizard.display.display import Display
 
 
 def build_project(project: Project, display: Display):
-    directories = build_directories(project)
-    create_pipenv(project, directories)
-    get_and_build_files(project, directories, display)
-
-
-def build_directories(project: Project) -> Directories:
     directories = Directories(project)
-    directories.build()
-    return directories
+    get_and_build_files(project, directories, display)
+    create_pipenv(project, directories)

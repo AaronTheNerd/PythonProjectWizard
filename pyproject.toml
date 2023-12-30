@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "python-project-wizard"
-version = "0.1.1"
+version = "0.2.2"
 authors = [
   { name="AaronTheNerd", email="bargeaaron@gmail.com" }
 ]
