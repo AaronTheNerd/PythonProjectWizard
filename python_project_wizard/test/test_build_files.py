@@ -18,12 +18,15 @@ from python_project_wizard.question.question import Question
 class TestDisplay(Display):
     def prompt(self, question: Question) -> None:
         return
+
     def get_input(self) -> str:
         return ""
+
     def display_error(self, exception: Exception) -> None:
         return
+
     def display_message(self, message: str) -> None:
-        return 
+        return
 
 
 @dataclass
@@ -64,7 +67,9 @@ class BuildFilesTestSuite(unittest.TestCase):
         directories = Directories(project)
         get_and_build_files(project, directories, TestDisplay())
         mocked_get_files.assert_called_once_with(project)
-        mocked_build_files.assert_called_once_with([], FileBuilder(directories), TestDisplay())
+        mocked_build_files.assert_called_once_with(
+            [], FileBuilder(directories), TestDisplay()
+        )
 
     @mock.patch("python_project_wizard.build_project.build_files.get_files_from_store")
     @mock.patch("python_project_wizard.build_project.build_files.get_launch_json")

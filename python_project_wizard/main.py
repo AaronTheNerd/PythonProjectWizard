@@ -15,9 +15,7 @@ def create_main_console():
     error_prefix = modify_text(
         modify_text("[ERROR]", ConsoleTextModifier.WARNING), ConsoleTextModifier.BOLD
     )
-    message_prefix = modify_text(
-        "[INFO]", ConsoleTextModifier.BOLD
-    )
+    message_prefix = modify_text("[INFO]", ConsoleTextModifier.BOLD)
     return Console(shell_prompt, error_prefix, message_prefix)
 
 

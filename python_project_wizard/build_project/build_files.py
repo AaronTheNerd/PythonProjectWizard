@@ -15,7 +15,9 @@ from python_project_wizard.build_project.clean_main_content import clean_main_co
 from python_project_wizard.display.display import Display
 
 
-def get_and_build_files(project: Project, directories: Directories, display: Display) -> None:
+def get_and_build_files(
+    project: Project, directories: Directories, display: Display
+) -> None:
     files = get_files(project)
     build_files(files, FileBuilder(directories), display)
 
