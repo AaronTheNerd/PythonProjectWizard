@@ -45,6 +45,7 @@ class FileTestSuite(unittest.TestCase):
             ),
             File(filename="config.json", content="{}", destination=Destination.MAIN),
             File(filename="launch.json", content="{}", destination=Destination.VS_CODE),
+            File(filename="test_example.py", content="", destination=Destination.TEST),
         ]
         for invalid_file in invalid_files:
             self.assertFalse(invalid_file.is_valid())
