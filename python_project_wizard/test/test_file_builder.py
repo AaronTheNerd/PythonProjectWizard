@@ -22,8 +22,9 @@ class FileBuilderTestSuite(unittest.TestCase):
         test_file = File(filename=File.INVALID_FILENAME, destination=Destination.MAIN)
         self.assertRaises(Exception, file_builder.build, test_file)
 
+    @mock.patch("os.makedirs")
     @mock.patch("builtins.open")
-    def test_build_file(self, mocked_open: mock.Mock):
+    def test_build_file(self, mocked_open: mock.Mock, mocked_makedirs: mock.Mock):
         project = Project(name="merlin project")
         dirs = Directories(project)
         file_builder = FileBuilder(dirs)
@@ -35,6 +36,7 @@ class FileBuilderTestSuite(unittest.TestCase):
             ),
             File(filename="config.json", content="{}", destination=Destination.MAIN),
             File(filename="launch.json", content="{}", destination=Destination.VS_CODE),
+            File(filename="test_example.py", content="# Test Example", destination=Destination.TEST)
         ]
         for file in test_files:
             file_builder.build(file)
@@ -45,4 +47,7 @@ class FileBuilderTestSuite(unittest.TestCase):
                 directory = dirs.source
             elif file.destination is Destination.VS_CODE:
                 directory = dirs.dot_vscode
+            elif file.destination is Destination.TEST:
+                directory = dirs.test
+            mocked_makedirs.assert_called_with(directory, exist_ok=True)
             mocked_open.assert_called_with(os.path.join(directory, file.filename), "w+")
