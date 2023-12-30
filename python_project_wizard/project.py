@@ -27,7 +27,13 @@ class Project:
             File(filename="logging.conf", destination=Destination.MAIN),
         ],
     )
-    use_unittest: bool = question_field(BoolQuestion("Add Unit Tests?", default="Y"))
+    use_unittest: bool = question_field(
+        BoolQuestion("Add Unit Tests?", default="Y"),
+        files=[
+            File(filename="__init__.py", destination=Destination.TEST),
+            File(filename="test_example.py", destination=Destination.TEST),
+        ]
+    )
     use_configs: bool = question_field(
         BoolQuestion("Add configs?", default="Y"),
         files=[

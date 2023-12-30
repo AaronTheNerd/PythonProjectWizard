@@ -9,6 +9,7 @@ class Destination(Enum):
     MAIN = auto()
     SOURCE = auto()
     VS_CODE = auto()
+    TEST = auto()
     INVALID = auto()
 
 

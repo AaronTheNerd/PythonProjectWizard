@@ -126,11 +126,13 @@ if __name__ == '__main__':
         )
 
     def test_get_main_directory_files(self):
-        project = Project(name="merlin project", use_configs=True)
+        project = Project(name="merlin project", use_configs=True, use_unittest=True)
         test_files = {
             "main.py": "# Main file",
             "configs.json": "{}",
             "configs.py": "# Configs file",
+            "__init__.py": "",
+            "test_example.py": "# Test Example"
         }
         store = TestStore(test_files)
         files = get_files_from_store(project, store)
@@ -153,6 +155,16 @@ if __name__ == '__main__':
                         content="# Configs file",
                         destination=Destination.SOURCE,
                     ),
+                    File(
+                        filename="__init__.py",
+                        content="",
+                        destination=Destination.TEST
+                    ),
+                    File(
+                        filename="test_example.py",
+                        content="# Test Example",
+                        destination=Destination.TEST
+                    )
                 ],
             )
         )
