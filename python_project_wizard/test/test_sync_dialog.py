@@ -29,6 +29,9 @@ class TestDisplay(Display):
     def display_error(self, exception: Exception) -> None:
         self.errors.append(exception)
 
+    def display_message(self, message: str) -> None:
+        return
+
 
 @dataclass
 class TestProject:

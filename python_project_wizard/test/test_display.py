@@ -51,3 +51,10 @@ class DisplayTestSuite(unittest.TestCase):
         display = Console()
         for case in cases:
             self.assertEqual(display.get_default_string(case.question), case.expected)
+
+    def test_display_message(self):
+        test_message = "test message"
+        with mock.patch("builtins.print") as mock_print:
+            console = Console()
+            console.display_message(test_message)
+            mock_print.assert_called()

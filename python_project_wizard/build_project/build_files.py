@@ -12,11 +12,12 @@ from python_project_wizard.project import Project
 from python_project_wizard.file import File, Destination
 from python_project_wizard.build_project.file_builder import FileBuilder
 from python_project_wizard.build_project.clean_main_content import clean_main_content
+from python_project_wizard.display.display import Display
 
 
-def get_and_build_files(project: Project, directories: Directories) -> None:
+def get_and_build_files(project: Project, directories: Directories, display: Display) -> None:
     files = get_files(project)
-    build_files(files, FileBuilder(directories))
+    build_files(files, FileBuilder(directories), display)
 
 
 def get_files(project: Project) -> list[File]:
@@ -63,6 +64,7 @@ def get_requested_files(project: Project) -> list[File]:
     return result
 
 
-def build_files(files: list[File], builder: FileBuilder) -> None:
+def build_files(files: list[File], builder: FileBuilder, display: Display) -> None:
     for file in files:
+        display.display_message(f"Building file: {file.filename}")
         builder.build(file)

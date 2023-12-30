@@ -15,3 +15,7 @@ class Display(ABC):
     @abstractmethod
     def display_error(self, exception: Exception) -> None:
         ...
+
+    @abstractmethod
+    def display_message(self, message: str) -> None:
+        ...

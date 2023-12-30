@@ -8,6 +8,7 @@ from python_project_wizard.question.question import Question
 class Console(Display):
     shell_prompt: str = ""
     error_prefix: str = ""
+    message_prefix: str = ""
 
     def prompt(self, question: Question) -> None:
         default_string = self.get_default_string(question)
@@ -23,3 +24,6 @@ class Console(Display):
 
     def display_error(self, exception: Exception) -> None:
         print(f"{self.error_prefix} {str(exception)}")
+
+    def display_message(self, message: str) -> None:
+        print(f"{self.message_prefix} {message}")

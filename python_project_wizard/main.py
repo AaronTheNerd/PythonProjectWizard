@@ -15,14 +15,17 @@ def create_main_console():
     error_prefix = modify_text(
         modify_text("[ERROR]", ConsoleTextModifier.WARNING), ConsoleTextModifier.BOLD
     )
-    return Console(shell_prompt, error_prefix)
+    message_prefix = modify_text(
+        "[INFO]", ConsoleTextModifier.BOLD
+    )
+    return Console(shell_prompt, error_prefix, message_prefix)
 
 
 def main():
     console = create_main_console()
     dialog = SyncDialog[Project](console)
     project = dialog.run(Project())
-    build_project(project)
+    build_project(project, console)
 
 
 if __name__ == "__main__":

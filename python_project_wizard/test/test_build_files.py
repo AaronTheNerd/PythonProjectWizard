@@ -10,6 +10,20 @@ from python_project_wizard.build_project.get_launch_json_content import *
 from python_project_wizard.file import File
 from python_project_wizard.file_content_store.file_content_store import FileContentStore
 from python_project_wizard.build_project.file_builder import FileBuilder
+from python_project_wizard.display.display import Display
+from python_project_wizard.question.question import Question
+
+
+@dataclass
+class TestDisplay(Display):
+    def prompt(self, question: Question) -> None:
+        return
+    def get_input(self) -> str:
+        return ""
+    def display_error(self, exception: Exception) -> None:
+        return
+    def display_message(self, message: str) -> None:
+        return 
 
 
 @dataclass
@@ -48,9 +62,9 @@ class BuildFilesTestSuite(unittest.TestCase):
     ):
         project = Project(name="merlin project")
         directories = Directories(project)
-        get_and_build_files(project, directories)
+        get_and_build_files(project, directories, TestDisplay())
         mocked_get_files.assert_called_once_with(project)
-        mocked_build_files.assert_called_once_with([], FileBuilder(directories))
+        mocked_build_files.assert_called_once_with([], FileBuilder(directories), TestDisplay())
 
     @mock.patch("python_project_wizard.build_project.build_files.get_files_from_store")
     @mock.patch("python_project_wizard.build_project.build_files.get_launch_json")
@@ -217,5 +231,5 @@ import logging
             ),
         ]
         builder = TestBuilder()
-        build_files(files, builder)
+        build_files(files, builder, TestDisplay())
         self.assertTrue(unordered_equal(builder.calls, files))
