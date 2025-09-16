@@ -6,7 +6,7 @@ from python_project_wizard.field import get_field_value
 from python_project_wizard.build_project.name import source_directory
 
 
-def clean_main_content(content: str, project: Project) -> str:
+def format_file_content(content: str, project: Project) -> str:
     for field in fields(project):
         template_pattern = f'"""ppw: {field.name}-(.*?)"""'
         replace_string = r"\1" if get_field_value(project, field.name) else ""

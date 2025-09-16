@@ -11,7 +11,7 @@ from python_project_wizard.file_content_store.folder_store import FolderStore
 from python_project_wizard.project import Project
 from python_project_wizard.file import File, Destination
 from python_project_wizard.build_project.file_builder import FileBuilder
-from python_project_wizard.build_project.clean_main_content import clean_main_content
+from python_project_wizard.build_project.format_file_content import format_file_content
 from python_project_wizard.display.display import Display
 
 
@@ -53,8 +53,7 @@ def get_files_from_store(project: Project, store: FileContentStore) -> list[File
     requested_files = get_requested_files(project)
     for file in requested_files:
         file.content = stored_file_content[file.filename]
-        if file.filename == "main.py":
-            file.content = clean_main_content(file.content, project)
+        file.content = format_file_content(file.content, project)
     return requested_files
 
 

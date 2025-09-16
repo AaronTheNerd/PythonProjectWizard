@@ -1,7 +1,7 @@
 import unittest
 import unittest.mock as mock
 
-from python_project_wizard.build_project.clean_main_content import clean_main_content
+from python_project_wizard.build_project.format_file_content import format_file_content
 from python_project_wizard.project import Project
 
 
@@ -26,7 +26,7 @@ def main():
 if __name__ == "__main__":
     main()
 '''
-        new_content = clean_main_content(content, project)
+        new_content = format_file_content(content, project)
         self.assertEqual(new_content, expected_content)
 
     def test_one_inclusion(self):
@@ -49,7 +49,7 @@ def main():
 if __name__ == "__main__":
     main()
 '''
-        new_content = clean_main_content(content, project)
+        new_content = format_file_content(content, project)
         self.assertEqual(new_content, expected_content)
 
     def test_one_multiline_inclusion(self):
@@ -74,7 +74,7 @@ def main():
 if __name__ == "__main__":
     main()
 '''
-        new_content = clean_main_content(content, project)
+        new_content = format_file_content(content, project)
         self.assertEqual(new_content, expected_content)
 
     def test_full_inclusion(self):
@@ -131,7 +131,7 @@ def main():
 if __name__ == "__main__":
     main()
 '''
-        new_content = clean_main_content(content, project)
+        new_content = format_file_content(content, project)
         self.assertEqual(new_content, expected_content)
 
     def test_full_exclusion(self):
@@ -175,5 +175,5 @@ def main():
 if __name__ == "__main__":
     main()
 '''
-        new_content = clean_main_content(content, project)
+        new_content = format_file_content(content, project)
         self.assertEqual(new_content, expected_content)
