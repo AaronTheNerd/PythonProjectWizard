@@ -2,9 +2,6 @@ import os
 from dataclasses import fields, Field
 
 from python_project_wizard.build_project.directories import Directories
-from python_project_wizard.build_project.get_launch_json_content import (
-    get_launch_json_content,
-)
 from python_project_wizard.field import get_field_value
 from python_project_wizard.file_content_store.file_content_store import FileContentStore
 from python_project_wizard.file_content_store.folder_store import FolderStore
@@ -18,23 +15,8 @@ from python_project_wizard.display.display import Display
 def get_and_build_files(
     project: Project, directories: Directories, display: Display
 ) -> None:
-    files = get_files(project)
+    files = get_files_from_store(project, FolderStore())
     build_files(files, FileBuilder(directories), display)
-
-
-def get_files(project: Project) -> list[File]:
-    files = []
-    files.append(get_launch_json(project))
-    files += get_files_from_store(project, FolderStore())
-    return files
-
-
-def get_launch_json(project: Project) -> File:
-    return File(
-        filename="launch.json",
-        content=get_launch_json_content(project),
-        destination=Destination.VS_CODE,
-    )
 
 
 def get_files_from_store(project: Project, store: FileContentStore) -> list[File]:

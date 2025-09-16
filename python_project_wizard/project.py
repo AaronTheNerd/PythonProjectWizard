@@ -14,7 +14,8 @@ class Project:
         files=[
             File(filename="main.py", destination=Destination.SOURCE),
             File(filename="README.md", destination=Destination.MAIN),
-            File(filename="__init__.py", destination=Destination.SOURCE)
+            File(filename="__init__.py", destination=Destination.SOURCE),
+            File(filename="launch.json", destination=Destination.VS_CODE)
         ],
     )
     python_version: str = question_field(

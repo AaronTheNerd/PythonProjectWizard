@@ -6,7 +6,6 @@ from typing import Any
 from dataclasses import dataclass, field
 from python_project_wizard.build_project.build_files import *
 from python_project_wizard.project import Project
-from python_project_wizard.build_project.get_launch_json_content import *
 from python_project_wizard.file import File
 from python_project_wizard.file_content_store.file_content_store import FileContentStore
 from python_project_wizard.build_project.file_builder import FileBuilder
@@ -56,55 +55,6 @@ class TestBuilder:
 
 
 class BuildFilesTestSuite(unittest.TestCase):
-    @mock.patch("python_project_wizard.build_project.build_files.build_files")
-    @mock.patch(
-        "python_project_wizard.build_project.build_files.get_files", return_value=[]
-    )
-    def test_get_and_build_files(
-        self, mocked_get_files: mock.Mock, mocked_build_files: mock.Mock
-    ):
-        project = Project(name="merlin project")
-        directories = Directories(project)
-        get_and_build_files(project, directories, TestDisplay())
-        mocked_get_files.assert_called_once_with(project)
-        mocked_build_files.assert_called_once_with(
-            [], FileBuilder(directories), TestDisplay()
-        )
-
-    @mock.patch("python_project_wizard.build_project.build_files.get_files_from_store")
-    @mock.patch("python_project_wizard.build_project.build_files.get_launch_json")
-    def test_get_files(
-        self,
-        mocked_launch_file: mock.Mock,
-        mocked_files_from_store: mock.Mock,
-    ):
-        project = Project(name="merlin project")
-        get_files(project)
-        mocked_launch_file.assert_called_once_with(project)
-        mocked_files_from_store.assert_called_once_with(project, FolderStore())
-
-    def test_get_launch_json(self):
-        project = Project(name="merlin project")
-        launch_file_content = """{
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "Launch",
-      "type": "python",
-      "request": "launch",
-      "module": "merlin_project.main",
-      "justMyCode": true
-    }
-  ]
-}"""
-        expected_file = File(
-            filename="launch.json",
-            content=launch_file_content,
-            destination=Destination.VS_CODE,
-        )
-        launch_file = get_launch_json(project)
-        self.assertEqual(launch_file, expected_file)
-
     def test_get_source_files(self):
         project = Project(name="merlin project")
         content = """# Hello World
@@ -117,7 +67,8 @@ if __name__ == '__main__':
         test_files = {
             "main.py": content,
             "README.md": "",
-            "__init__.py": ""
+            "__init__.py": "",
+            "launch.json": "{}"
         }
         store = TestStore(test_files)
         files = get_files_from_store(project, store)
@@ -126,7 +77,8 @@ if __name__ == '__main__':
             [
                 File(filename="main.py", content=content, destination=Destination.SOURCE),
                 File(filename="README.md", content="", destination=Destination.MAIN),
-                File(filename="__init__.py", content="", destination=Destination.SOURCE)
+                File(filename="__init__.py", content="", destination=Destination.SOURCE),
+                File(filename="launch.json", content="{}", destination=Destination.VS_CODE)
             ],
         )
 
@@ -135,6 +87,7 @@ if __name__ == '__main__':
         test_files = {
             "main.py": "# Main file",
             "README.md": "# Merlin Project",
+            "launch.json": "{}",
             "configs.json": "{}",
             "configs.py": "# Configs file",
             "__init__.py": "",
@@ -160,6 +113,11 @@ if __name__ == '__main__':
                         filename="__init__.py",
                         content="",
                         destination=Destination.SOURCE
+                    ),
+                    File(
+                        filename="launch.json",
+                        content="{}",
+                        destination=Destination.VS_CODE
                     ),
                     File(
                         filename="configs.json",
@@ -193,6 +151,7 @@ import logging
 """''',
             "README.md": "",
             "__init__.py": "",
+            "launch.json": "{}",
             "configs.json": "{}",
             "configs.py": "# Configs file",
         }
@@ -217,6 +176,11 @@ import logging
                         filename="__init__.py",
                         content="",
                         destination=Destination.SOURCE
+                    ),
+                    File(
+                        filename="launch.json",
+                        content="{}",
+                        destination=Destination.VS_CODE
                     ),
                     File(
                         filename="configs.json",
@@ -245,6 +209,11 @@ import logging
                 content="# Configs file",
                 destination=Destination.SOURCE,
             ),
+            File(
+                filename="launch.json",
+                content="{}",
+                destination=Destination.VS_CODE
+            )
         ]
         builder = TestBuilder()
         build_files(files, builder, TestDisplay())
