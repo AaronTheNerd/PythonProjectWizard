@@ -180,14 +180,14 @@ if __name__ == "__main__":
 
     def test_format_project_title(self):
         project = Project(name="merlin project")
-        content = '''# {project_title}'''
-        expected_content = '''# Merlin Project'''
+        content = """# {project_title}"""
+        expected_content = """# Merlin Project"""
         new_content = format_file_content(content, project)
         self.assertEqual(new_content, expected_content)
 
     def test_format_project_name(self):
         project = Project(name="merlin project")
-        content = '''{project_source}'''
-        expected_content = '''merlin_project'''
+        content = """{project_source}"""
+        expected_content = """merlin_project"""
         new_content = format_file_content(content, project)
         self.assertEqual(new_content, expected_content)

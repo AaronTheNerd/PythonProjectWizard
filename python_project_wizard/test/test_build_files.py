@@ -68,17 +68,25 @@ if __name__ == '__main__':
             "main.py": content,
             "README.md": "",
             "__init__.py": "",
-            "launch.json": "{}"
+            "launch.json": "{}",
         }
         store = TestStore(test_files)
         files = get_files_from_store(project, store)
         self.assertEqual(
             files,
             [
-                File(filename="main.py", content=content, destination=Destination.SOURCE),
+                File(
+                    filename="main.py", content=content, destination=Destination.SOURCE
+                ),
                 File(filename="README.md", content="", destination=Destination.MAIN),
-                File(filename="__init__.py", content="", destination=Destination.SOURCE),
-                File(filename="launch.json", content="{}", destination=Destination.VS_CODE)
+                File(
+                    filename="__init__.py", content="", destination=Destination.SOURCE
+                ),
+                File(
+                    filename="launch.json",
+                    content="{}",
+                    destination=Destination.VS_CODE,
+                ),
             ],
         )
 
@@ -107,17 +115,17 @@ if __name__ == '__main__':
                     File(
                         filename="README.md",
                         content="# Merlin Project",
-                        destination=Destination.MAIN
+                        destination=Destination.MAIN,
                     ),
                     File(
                         filename="__init__.py",
                         content="",
-                        destination=Destination.SOURCE
+                        destination=Destination.SOURCE,
                     ),
                     File(
                         filename="launch.json",
                         content="{}",
-                        destination=Destination.VS_CODE
+                        destination=Destination.VS_CODE,
                     ),
                     File(
                         filename="configs.json",
@@ -168,19 +176,17 @@ import logging
                         destination=Destination.SOURCE,
                     ),
                     File(
-                        filename="README.md",
-                        content="",
-                        destination=Destination.MAIN
+                        filename="README.md", content="", destination=Destination.MAIN
                     ),
                     File(
                         filename="__init__.py",
                         content="",
-                        destination=Destination.SOURCE
+                        destination=Destination.SOURCE,
                     ),
                     File(
                         filename="launch.json",
                         content="{}",
-                        destination=Destination.VS_CODE
+                        destination=Destination.VS_CODE,
                     ),
                     File(
                         filename="configs.json",
@@ -209,11 +215,7 @@ import logging
                 content="# Configs file",
                 destination=Destination.SOURCE,
             ),
-            File(
-                filename="launch.json",
-                content="{}",
-                destination=Destination.VS_CODE
-            )
+            File(filename="launch.json", content="{}", destination=Destination.VS_CODE),
         ]
         builder = TestBuilder()
         build_files(files, builder, TestDisplay())

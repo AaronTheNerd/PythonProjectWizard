@@ -11,12 +11,14 @@ def format_file_content(content: str, project: Project) -> str:
     content = add_project_fields(content, project)
     return content
 
+
 def remove_unnecessary_sections(content: str, project: Project) -> str:
     for field in fields(project):
         template_pattern = f'"""ppw: {field.name}-(.*?)"""'
         replace_string = r"\1" if get_field_value(project, field.name) else ""
         content = re.sub(template_pattern, replace_string, content, flags=re.DOTALL)
     return content
+
 
 def add_project_fields(content: str, project: Project) -> str:
     content = re.sub("{project_source}", source_directory(project.name), content)
