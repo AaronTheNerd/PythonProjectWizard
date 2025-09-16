@@ -1,6 +1,6 @@
-"""ppw: use_args-from {project_name}.args import get_argparser
-""""""ppw: use_configs-from {project_name}.configs import load_configs
-""""""ppw: use_logging-from {project_name}.log import enable_logging
+"""ppw: use_args-from {project_source}.args import get_argparser
+""""""ppw: use_configs-from {project_source}.configs import load_configs
+""""""ppw: use_logging-from {project_source}.log import enable_logging
 import logging
 """
 

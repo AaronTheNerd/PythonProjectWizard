@@ -81,9 +81,9 @@ if __name__ == "__main__":
         project = Project(
             name="merlin project", use_logging=True, use_args=True, use_configs=True
         )
-        content = '''"""ppw: use_args-from {project_name}.args import get_argparser"""
-"""ppw: use_configs-from {project_name}.configs import load_configs"""
-"""ppw: use_logging-from {project_name}.log import enable_logging
+        content = '''"""ppw: use_args-from {project_source}.args import get_argparser"""
+"""ppw: use_configs-from {project_source}.configs import load_configs"""
+"""ppw: use_logging-from {project_source}.log import enable_logging
 import logging"""
 
 def main():
@@ -136,9 +136,9 @@ if __name__ == "__main__":
 
     def test_full_exclusion(self):
         project = Project(name="merlin project")
-        content = '''"""ppw: use_args-from {project_name}.args import get_argparser"""
-"""ppw: use_configs-from {project_name}.configs import load_configs"""
-"""ppw: use_logging-from {project_name}.log import enable_logging
+        content = '''"""ppw: use_args-from {project_source}.args import get_argparser"""
+"""ppw: use_configs-from {project_source}.configs import load_configs"""
+"""ppw: use_logging-from {project_source}.log import enable_logging
 import logging"""
 
 def main():
@@ -175,5 +175,19 @@ def main():
 if __name__ == "__main__":
     main()
 '''
+        new_content = format_file_content(content, project)
+        self.assertEqual(new_content, expected_content)
+
+    def test_format_project_title(self):
+        project = Project(name="merlin project")
+        content = '''# {project_title}'''
+        expected_content = '''# Merlin Project'''
+        new_content = format_file_content(content, project)
+        self.assertEqual(new_content, expected_content)
+
+    def test_format_project_name(self):
+        project = Project(name="merlin project")
+        content = '''{project_source}'''
+        expected_content = '''merlin_project'''
         new_content = format_file_content(content, project)
         self.assertEqual(new_content, expected_content)
