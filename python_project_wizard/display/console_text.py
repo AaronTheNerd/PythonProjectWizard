@@ -15,8 +15,8 @@ class ConsoleTextModifier(StrEnum):
     FAIL = "\033[91m"
     BOLD = "\033[1m"
     UNDERLINE = "\033[4m"
+    END = "\033[0m"
 
 
 def modify_text(message: str, modifier: ConsoleTextModifier):
-    end_modifier = "\033[0m"
-    return f"{modifier}{message}{end_modifier}"
+    return f"{modifier.value}{message}{ConsoleTextModifier.END.value}"
