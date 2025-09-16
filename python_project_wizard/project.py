@@ -1,4 +1,4 @@
-from python_project_wizard.question.plain_question import PlainQuestion
+from python_project_wizard.question.text_question import TextQuestion
 from python_project_wizard.question.bool_question import BoolQuestion
 from python_project_wizard.question.version_question import VersionQuestion
 from python_project_wizard.field import question_field
@@ -10,7 +10,7 @@ from dataclasses import dataclass
 @dataclass
 class Project:
     name: str = question_field(
-        PlainQuestion("What is the name of your Project?"),
+        TextQuestion("What is the name of your Project?"),
         files=[File(filename="main.py", destination=Destination.SOURCE)],
     )
     python_version: str = question_field(

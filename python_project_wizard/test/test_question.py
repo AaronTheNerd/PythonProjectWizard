@@ -1,21 +1,21 @@
 import unittest
 
 from python_project_wizard.question.bool_question import BoolQuestion
-from python_project_wizard.question.plain_question import PlainQuestion
+from python_project_wizard.question.text_question import TextQuestion
 from python_project_wizard.question.question import Question
 from python_project_wizard.question.version_question import VersionQuestion
 
 
 class QuestionTestSuite(unittest.TestCase):
     def test_constructor(self):
-        self.assertIsInstance(PlainQuestion("Name?"), Question)
-        self.assertIsInstance(PlainQuestion("Name?", "Merlin"), Question)
+        self.assertIsInstance(TextQuestion("Name?"), Question)
+        self.assertIsInstance(TextQuestion("Name?", "Merlin"), Question)
         self.assertIsInstance(BoolQuestion("Name?"), Question)
         self.assertIsInstance(BoolQuestion("Name?", "Y"), Question)
 
     def test_name_validator(self):
         raw_input = "merlin"
-        question = PlainQuestion("")
+        question = TextQuestion("")
         answer = question.validate_input_or_default(raw_input)
         self.assertEqual(answer.value, raw_input)
 

@@ -8,7 +8,7 @@ from python_project_wizard.exception import DefaultMissingException
 from python_project_wizard.field import question_field
 from python_project_wizard.project import Project
 from python_project_wizard.question.bool_question import BoolQuestion
-from python_project_wizard.question.plain_question import PlainQuestion
+from python_project_wizard.question.text_question import TextQuestion
 from python_project_wizard.question.question import Question
 
 
@@ -35,8 +35,8 @@ class TestDisplay(Display):
 
 @dataclass
 class TestProject:
-    name: str = question_field(PlainQuestion("Name?"))
-    python_version: str = question_field(PlainQuestion("Version?"))
+    name: str = question_field(TextQuestion("Name?"))
+    python_version: str = question_field(TextQuestion("Version?"))
     use_black_formatting: bool = question_field(BoolQuestion("Black?"))
     use_logging: bool = question_field(BoolQuestion("Logging?"))
     use_unittest: bool = question_field(BoolQuestion("Unit Tests?"))
@@ -89,7 +89,7 @@ class SyncDialogTestSuite(unittest.TestCase):
     def test_error_on_blank_with_no_default(self):
         test_inputs = ["", "Merlin"]
         dialog = SyncDialog[str](TestDisplay(test_inputs))
-        answer = dialog.prompt_user_until_answer_provided(PlainQuestion("Name?"))
+        answer = dialog.prompt_user_until_answer_provided(TextQuestion("Name?"))
         self.assertIsInstance(answer.value, str)
         self.assertEqual(answer.value, "Merlin")
 
