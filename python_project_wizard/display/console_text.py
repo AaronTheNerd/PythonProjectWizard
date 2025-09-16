@@ -18,5 +18,7 @@ class ConsoleTextModifier(StrEnum):
     END = "\033[0m"
 
 
-def modify_text(message: str, modifier: ConsoleTextModifier):
-    return f"{modifier.value}{message}{ConsoleTextModifier.END.value}"
+def modify_text(text: str, modifiers: list[ConsoleTextModifier]):
+    modifier_open = "".join([modifier.value for modifier in modifiers])
+    modifier_close = ConsoleTextModifier.END.value * len(modifiers)
+    return f"{modifier_open}{text}{modifier_close}"

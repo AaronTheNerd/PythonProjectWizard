@@ -6,16 +6,9 @@ from python_project_wizard.project import Project
 
 
 def create_main_console():
-    shell_prompt = (
-        modify_text(
-            modify_text("Merlin", ConsoleTextModifier.OKBLUE), ConsoleTextModifier.BOLD
-        )
-        + "$"
-    )
-    error_prefix = modify_text(
-        modify_text("[ERROR]", ConsoleTextModifier.WARNING), ConsoleTextModifier.BOLD
-    )
-    message_prefix = modify_text("[INFO]", ConsoleTextModifier.BOLD)
+    shell_prompt = f"{modify_text('Merlin', [ConsoleTextModifier.OKBLUE, ConsoleTextModifier.BOLD])}$"
+    error_prefix = modify_text("[ERROR]", [ConsoleTextModifier.WARNING, ConsoleTextModifier.BOLD])
+    message_prefix = modify_text("[INFO]", [ConsoleTextModifier.BOLD])
     return Console(shell_prompt, error_prefix, message_prefix)
 
 
