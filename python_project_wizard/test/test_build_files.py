@@ -73,35 +73,15 @@ class BuildFilesTestSuite(unittest.TestCase):
 
     @mock.patch("python_project_wizard.build_project.build_files.get_files_from_store")
     @mock.patch("python_project_wizard.build_project.build_files.get_launch_json")
-    @mock.patch("python_project_wizard.build_project.build_files.get_static_files")
     def test_get_files(
         self,
-        mocked_static_files: mock.Mock,
         mocked_launch_file: mock.Mock,
         mocked_files_from_store: mock.Mock,
     ):
         project = Project(name="merlin project")
         get_files(project)
-        mocked_static_files.assert_called_once_with(project)
         mocked_launch_file.assert_called_once_with(project)
         mocked_files_from_store.assert_called_once_with(project, FolderStore())
-
-    def test_get_static(self):
-        project = Project(name="merlin project")
-        static_files = get_static_files(project)
-        self.assertEqual(
-            static_files,
-            [
-                File(
-                    filename="README.md",
-                    content="# Merlin Project",
-                    destination=Destination.MAIN,
-                ),
-                File(
-                    filename="__init__.py", content="", destination=Destination.SOURCE
-                ),
-            ],
-        )
 
     def test_get_launch_json(self):
         project = Project(name="merlin project")
@@ -134,18 +114,27 @@ def main():
 if __name__ == '__main__':
     main()
 """
-        test_files = {"main.py": content}
+        test_files = {
+            "main.py": content,
+            "README.md": "",
+            "__init__.py": ""
+        }
         store = TestStore(test_files)
         files = get_files_from_store(project, store)
         self.assertEqual(
             files,
-            [File(filename="main.py", content=content, destination=Destination.SOURCE)],
+            [
+                File(filename="main.py", content=content, destination=Destination.SOURCE),
+                File(filename="README.md", content="", destination=Destination.MAIN),
+                File(filename="__init__.py", content="", destination=Destination.SOURCE)
+            ],
         )
 
     def test_get_main_directory_files(self):
         project = Project(name="merlin project", use_configs=True, use_unittest=True)
         test_files = {
             "main.py": "# Main file",
+            "README.md": "# Merlin Project",
             "configs.json": "{}",
             "configs.py": "# Configs file",
             "__init__.py": "",
@@ -161,6 +150,16 @@ if __name__ == '__main__':
                         filename="main.py",
                         content="# Main file",
                         destination=Destination.SOURCE,
+                    ),
+                    File(
+                        filename="README.md",
+                        content="# Merlin Project",
+                        destination=Destination.MAIN
+                    ),
+                    File(
+                        filename="__init__.py",
+                        content="",
+                        destination=Destination.SOURCE
                     ),
                     File(
                         filename="configs.json",
@@ -192,6 +191,8 @@ if __name__ == '__main__':
 """"""ppw: use_logging-from log import enable_logging
 import logging
 """''',
+            "README.md": "",
+            "__init__.py": "",
             "configs.json": "{}",
             "configs.py": "# Configs file",
         }
@@ -206,6 +207,16 @@ import logging
                         content="""from configs import load_configs
 """,
                         destination=Destination.SOURCE,
+                    ),
+                    File(
+                        filename="README.md",
+                        content="",
+                        destination=Destination.MAIN
+                    ),
+                    File(
+                        filename="__init__.py",
+                        content="",
+                        destination=Destination.SOURCE
                     ),
                     File(
                         filename="configs.json",

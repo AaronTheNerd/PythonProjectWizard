@@ -11,7 +11,11 @@ from dataclasses import dataclass
 class Project:
     name: str = question_field(
         TextQuestion("What is the name of your Project?"),
-        files=[File(filename="main.py", destination=Destination.SOURCE)],
+        files=[
+            File(filename="main.py", destination=Destination.SOURCE),
+            File(filename="README.md", destination=Destination.MAIN),
+            File(filename="__init__.py", destination=Destination.SOURCE)
+        ],
     )
     python_version: str = question_field(
         VersionQuestion("What version of Python?", default="3.10"),

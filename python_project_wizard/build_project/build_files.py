@@ -23,21 +23,10 @@ def get_and_build_files(
 
 
 def get_files(project: Project) -> list[File]:
-    files = get_static_files(project)
+    files = []
     files.append(get_launch_json(project))
     files += get_files_from_store(project, FolderStore())
     return files
-
-
-def get_static_files(project: Project) -> list[File]:
-    return [
-        File(
-            filename="README.md",
-            content=f"# {project.name.title()}",
-            destination=Destination.MAIN,
-        ),
-        File(filename="__init__.py", content="", destination=Destination.SOURCE),
-    ]
 
 
 def get_launch_json(project: Project) -> File:
