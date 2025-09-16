@@ -7,7 +7,7 @@ from python_project_wizard.build_project.get_launch_json_content import (
 )
 from python_project_wizard.field import get_field_value
 from python_project_wizard.file_content_store.file_content_store import FileContentStore
-from python_project_wizard.file_content_store.gist_store import GistStore
+from python_project_wizard.file_content_store.folder_store import FolderStore
 from python_project_wizard.project import Project
 from python_project_wizard.file import File, Destination
 from python_project_wizard.build_project.file_builder import FileBuilder
@@ -25,7 +25,7 @@ def get_and_build_files(
 def get_files(project: Project) -> list[File]:
     files = get_static_files(project)
     files.append(get_launch_json(project))
-    files += get_files_from_store(project, GistStore())
+    files += get_files_from_store(project, FolderStore())
     return files
 
 

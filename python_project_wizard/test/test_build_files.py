@@ -84,7 +84,7 @@ class BuildFilesTestSuite(unittest.TestCase):
         get_files(project)
         mocked_static_files.assert_called_once_with(project)
         mocked_launch_file.assert_called_once_with(project)
-        mocked_files_from_store.assert_called_once_with(project, GistStore())
+        mocked_files_from_store.assert_called_once_with(project, FolderStore())
 
     def test_get_static(self):
         project = Project(name="merlin project")

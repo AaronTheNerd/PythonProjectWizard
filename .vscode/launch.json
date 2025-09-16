@@ -21,7 +21,7 @@
     },
     {
       "name": "Run Test Suite",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "module": "unittest",
       "justMyCode": true
