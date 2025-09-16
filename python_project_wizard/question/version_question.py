@@ -3,7 +3,7 @@ from python_project_wizard.question.question import Question
 
 
 class VersionQuestion(Question):
-    valid_versions: list[str] = ["3.10"]
+    valid_versions: list[str] = ["3.10", "3.11", "3.12"]
 
     def validate_input_or_default(self, input: str) -> Answer:
         if input not in self.valid_versions:
