@@ -4,6 +4,7 @@
 import logging
 """
 
+
 def main():
     """ppw: use_logging-# Enable logging
     enable_logging()
@@ -19,6 +20,7 @@ def main():
     """
     """Cool stuff here!"""
     ...
+
 
 if __name__ == "__main__":
     main()
