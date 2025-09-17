@@ -30,4 +30,6 @@ class FileBuilder:
             directory = self.directories.dot_vscode
         elif file.destination is Destination.TEST:
             directory = self.directories.test
+        elif file.destination is Destination.SCRIPTS:
+            directory = self.directories.scripts
         return directory

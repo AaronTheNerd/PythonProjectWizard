@@ -56,7 +56,8 @@ class SyncDialogTestSuite(unittest.TestCase):
             "Y",  # Logging
             "N",  # Unit test
             "Y",  # Configs
-            "Y",  # args
+            "Y",  # args,
+            "N",  # publishing
         ]
         dialog = SyncDialog[Project](TestDisplay(test_inputs))
         project = dialog.run(Project())
@@ -67,6 +68,7 @@ class SyncDialogTestSuite(unittest.TestCase):
         self.assertEqual(project.use_unittest, False)
         self.assertEqual(project.use_configs, True)
         self.assertEqual(project.use_args, True)
+        self.assertEqual(project.use_publishing, False)
 
     def test_get_answer_validator_return_value(self):
         test_input = "Yes"

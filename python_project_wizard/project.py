@@ -23,7 +23,7 @@ class Project:
     )
     use_black_formatting: bool = question_field(
         BoolQuestion("Add Black formatting?", default="Y"),
-        package="black",
+        packages=["black"],
     )
     use_logging: bool = question_field(
         BoolQuestion("Add logging?", default="Y"),
@@ -49,4 +49,19 @@ class Project:
     use_args: bool = question_field(
         BoolQuestion("Add arguments?", default="N"),
         files=[File(filename="args.py", destination=Destination.SOURCE)],
+    )
+    use_publishing: bool = question_field(
+        BoolQuestion("Add publishing?", default="N"),
+        packages=[
+            "setuptools", "build", "wheel", "twine"
+        ],
+        files=[
+            File(filename="pyproject.toml", destination=Destination.MAIN),
+            File(filename="setup.py", destination=Destination.MAIN),
+            File(filename="__init__.py", destination=Destination.SCRIPTS),
+            File(filename="build.py", destination=Destination.SCRIPTS),
+            File(filename="clean.py", destination=Destination.SCRIPTS),
+            File(filename="publish.py", destination=Destination.SCRIPTS),
+            File(filename="utils.py", destination=Destination.SCRIPTS)
+        ]
     )

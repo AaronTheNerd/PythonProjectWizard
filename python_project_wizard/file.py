@@ -10,6 +10,7 @@ class Destination(Enum):
     SOURCE = auto()
     VS_CODE = auto()
     TEST = auto()
+    SCRIPTS = auto()
     INVALID = auto()
 
 
