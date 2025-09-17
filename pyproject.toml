@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "python-project-wizard"
-version = "1.1.1"
+version = "1.1.4"
 authors = [
   { name="AaronTheNerd", email="bargeaaron@gmail.com" }
 ]
@@ -15,8 +15,8 @@ requires-python = ">=3.10"
 merlin = "python_project_wizard.main:main"
 
 [tool.setuptools.packages.find]
-where = ["python_project_wizard"]
-exclude = ["test*"]
+include = ["python_project_wizard*"]
+exclude = ["python_project_wizard.test*", "scripts*"]
 
 [tool.setuptools.package-data]
-"*" = ["*.*"]
+"python_project_wizard.templates" = ["*.*"]

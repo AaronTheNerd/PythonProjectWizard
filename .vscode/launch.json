@@ -19,6 +19,13 @@
       "justMyCode": true
     },
     {
+      "name": "Build",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "scripts.build",
+      "justMyCode": true
+    },
+    {
       "name": "Format Code",
       "type": "debugpy",
       "request": "launch",

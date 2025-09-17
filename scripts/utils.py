@@ -37,6 +37,6 @@ def publish() -> None:
 def clean() -> None:
     print("Cleaning...")
     subprocess.run(
-        "rm -rf dist **/*.egg-info",
+        "rm -rf dist *.egg-info **/*.egg-info",
         **command_params
     )
