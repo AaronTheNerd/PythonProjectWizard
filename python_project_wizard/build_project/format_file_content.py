@@ -23,4 +23,5 @@ def remove_unnecessary_sections(content: str, project: Project) -> str:
 def add_project_fields(content: str, project: Project) -> str:
     content = re.sub("{project_source}", source_directory(project.name), content)
     content = re.sub("{project_title}", project.name.title(), content)
+    content = re.sub("{python_version}", project.python_version, content)
     return content

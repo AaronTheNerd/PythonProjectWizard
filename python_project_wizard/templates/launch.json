@@ -14,14 +14,35 @@
       "request": "launch",
       "module": "black",
       "justMyCode": true,
-      "args": ["{project_source}"],
+      "args": ["{project_source}"]
     }""""""ppw: use_unittest-,
     {
       "name": "Test",
       "type": "debugpy",
       "request": "launch",
       "module": "unittest",
-      "justMyCode": true,
+      "justMyCode": true
+    }""""""ppw: use_publishing-,
+    {
+      "name": "Publish",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "scripts.publish",
+      "justMyCode": true
+    },
+    {
+      "name": "Clean",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "scripts.clean",
+      "justMyCode": true
+    },
+    {
+      "name": "Build",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "scripts.build",
+      "justMyCode": true
     }"""
   ]
 }

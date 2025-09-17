@@ -56,7 +56,7 @@ class TestBuilder:
 
 class BuildFilesTestSuite(unittest.TestCase):
     def test_get_source_files(self):
-        project = Project(name="merlin project")
+        project = Project(name="merlin project", python_version="3.10")
         content = """# Hello World
 def main():
     ...
@@ -91,7 +91,7 @@ if __name__ == '__main__':
         )
 
     def test_get_main_directory_files(self):
-        project = Project(name="merlin project", use_configs=True, use_unittest=True)
+        project = Project(name="merlin project", python_version="3.10", use_configs=True, use_unittest=True)
         test_files = {
             "main.py": "# Main file",
             "README.md": "# Merlin Project",
@@ -150,7 +150,7 @@ if __name__ == '__main__':
         )
 
     def test_get_main_directory_files_with_cleaning(self):
-        project = Project(name="merlin project", use_configs=True)
+        project = Project(name="merlin project", python_version="3.10", use_configs=True)
         test_files = {
             "main.py": '''"""ppw: use_args-from args import get_argparser
 """"""ppw: use_configs-from configs import load_configs

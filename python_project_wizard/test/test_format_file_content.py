@@ -7,7 +7,7 @@ from python_project_wizard.project import Project
 
 class BuildFilesTestSuite(unittest.TestCase):
     def test_one_removal(self):
-        project = Project(name="merlin project")
+        project = Project(name="merlin project", python_version="3.10")
         content = '''"""ppw: use_args-from args import get_argparser"""
 
 def main():
@@ -30,7 +30,7 @@ if __name__ == "__main__":
         self.assertEqual(new_content, expected_content)
 
     def test_one_inclusion(self):
-        project = Project(name="merlin project", use_args=True)
+        project = Project(name="merlin project", python_version="3.10", use_args=True)
         content = '''"""ppw: use_args-from args import get_argparser"""
 
 def main():
@@ -53,7 +53,7 @@ if __name__ == "__main__":
         self.assertEqual(new_content, expected_content)
 
     def test_one_multiline_inclusion(self):
-        project = Project(name="merlin project", use_logging=True)
+        project = Project(name="merlin project", python_version="3.10", use_logging=True)
         content = '''"""ppw: use_logging-from log import enable_logging
 import logging"""
 
@@ -79,7 +79,7 @@ if __name__ == "__main__":
 
     def test_full_inclusion(self):
         project = Project(
-            name="merlin project", use_logging=True, use_args=True, use_configs=True
+            name="merlin project", python_version="3.10", use_logging=True, use_args=True, use_configs=True
         )
         content = '''"""ppw: use_args-from {project_source}.args import get_argparser"""
 """ppw: use_configs-from {project_source}.configs import load_configs"""
@@ -135,7 +135,7 @@ if __name__ == "__main__":
         self.assertEqual(new_content, expected_content)
 
     def test_full_exclusion(self):
-        project = Project(name="merlin project")
+        project = Project(name="merlin project", python_version="3.10")
         content = '''"""ppw: use_args-from {project_source}.args import get_argparser"""
 """ppw: use_configs-from {project_source}.configs import load_configs"""
 """ppw: use_logging-from {project_source}.log import enable_logging
@@ -179,15 +179,22 @@ if __name__ == "__main__":
         self.assertEqual(new_content, expected_content)
 
     def test_format_project_title(self):
-        project = Project(name="merlin project")
+        project = Project(name="merlin project", python_version="3.10")
         content = """# {project_title}"""
         expected_content = """# Merlin Project"""
         new_content = format_file_content(content, project)
         self.assertEqual(new_content, expected_content)
 
     def test_format_project_name(self):
-        project = Project(name="merlin project")
+        project = Project(name="merlin project", python_version="3.10")
         content = """{project_source}"""
         expected_content = """merlin_project"""
+        new_content = format_file_content(content, project)
+        self.assertEqual(new_content, expected_content)
+
+    def test_format_python_version(self):
+        project = Project(name="merlin project", python_version="3.10")
+        content = """{python_version}"""
+        expected_content = """3.10"""
         new_content = format_file_content(content, project)
         self.assertEqual(new_content, expected_content)

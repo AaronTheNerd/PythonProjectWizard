@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "{project_source}"
+version = "0.0.1"
+authors = [
+  { name="<NAME>", email="<EMAIL>" }
+]
+description = ""
+requires-python = ">={python_version}"
+
+[tool.setuptools.packages.find]
+include = ["{project_source}*"]
+exclude = ["{project_source}.test*", "scripts*"]
