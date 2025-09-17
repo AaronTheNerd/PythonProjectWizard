@@ -3,8 +3,8 @@ from dataclasses import fields, Field
 
 from python_project_wizard.build_project.directories import Directories
 from python_project_wizard.field import get_field_value
-from python_project_wizard.file_content_store.file_content_store import FileContentStore
-from python_project_wizard.file_content_store.folder_store import FolderStore
+from python_project_wizard.file_store.file_store import FileStore
+from python_project_wizard.file_store.folder_store import FolderStore
 from python_project_wizard.project import Project
 from python_project_wizard.file import File, Destination
 from python_project_wizard.build_project.file_builder import FileBuilder
@@ -19,8 +19,8 @@ def get_and_build_files(
     build_files(files, FileBuilder(directories), display)
 
 
-def get_files_from_store(project: Project, store: FileContentStore) -> list[File]:
-    stored_file_content = store.get_file_content()
+def get_files_from_store(project: Project, store: FileStore) -> list[File]:
+    stored_file_content = store.get_files()
     requested_files = get_requested_files(project)
     for file in requested_files:
         file.content = stored_file_content[file.filename]

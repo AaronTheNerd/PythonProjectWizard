@@ -2,16 +2,16 @@ import os
 
 from dataclasses import dataclass
 
-from python_project_wizard.file_content_store.file_content_store import FileContentStore
+from python_project_wizard.file_store.file_store import FileStore
 
 
 @dataclass
-class FolderStore(FileContentStore):
+class FolderStore(FileStore):
     templates_directory_path: str = os.path.join(
         os.path.abspath(os.path.dirname(__file__)), "..", "templates"
     )
 
-    def get_file_content(self) -> dict[str, str]:
+    def get_files(self) -> dict[str, str]:
         self.validate_directory_path()
         template_files = self.get_template_files()
         return self.get_file_contents(template_files)

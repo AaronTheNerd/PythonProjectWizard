@@ -7,7 +7,7 @@ from dataclasses import dataclass, field
 from python_project_wizard.build_project.build_files import *
 from python_project_wizard.project import Project
 from python_project_wizard.file import File
-from python_project_wizard.file_content_store.file_content_store import FileContentStore
+from python_project_wizard.file_store.file_store import FileStore
 from python_project_wizard.build_project.file_builder import FileBuilder
 from python_project_wizard.display.display import Display
 from python_project_wizard.question.question import Question
@@ -29,10 +29,10 @@ class TestDisplay(Display):
 
 
 @dataclass
-class TestStore(FileContentStore):
+class TestStore(FileStore):
     test_files: dict[str, str]
 
-    def get_file_content(self) -> dict[str, str]:
+    def get_files(self) -> dict[str, str]:
         return self.test_files
 
 

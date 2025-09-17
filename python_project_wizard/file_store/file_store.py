@@ -5,7 +5,7 @@ from python_project_wizard.file import File
 
 
 @dataclass
-class FileContentStore(ABC):
+class FileStore(ABC):
     @abstractmethod
-    def get_file_content(self) -> dict[str, File]:
+    def get_files(self) -> dict[str, File]:
         ...
