@@ -20,8 +20,10 @@ def initialize_pipenv(project: Project, directories: Directories) -> None:
 def install_packages(project: Project, directories: Directories) -> None:
     for field in fields(project):
         field_value = get_field_value(project, field.name)
-        if field_value and field.metadata["package"] is not None:
-            install_package(directories.main, field.metadata["package"])
+        if not field_value:
+            continue
+        for package in field.metadata["packages"]:
+            install_package(directories.main, package)
 
 
 def install_package(cwd: str, package: str) -> None:

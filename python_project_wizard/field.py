@@ -1,5 +1,5 @@
 from dataclasses import field
-from typing import TypeVar, Any, Optional
+from typing import TypeVar, Any
 
 from python_project_wizard.question.question import Question
 from python_project_wizard.file import File
@@ -17,10 +17,10 @@ def get_field_value(object: Any, field: str) -> Any:
 
 
 def question_field(
-    question: Question, files: list[File] = list(), package: Optional[str] = None
+    question: Question, files: list[File] = list(), packages: list[str] = list()
 ):
     return field(
         default=None,
-        metadata={"question": question, "files": files, "package": package},
+        metadata={"question": question, "files": files, "packages": packages},
         kw_only=True,
     )
