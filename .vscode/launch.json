@@ -5,15 +5,22 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Build",
-      "type": "python",
+      "name": "Publish",
+      "type": "debugpy",
       "request": "launch",
-      "module": "build",
+      "module": "scripts.publish",
+      "justMyCode": true
+    },
+    {
+      "name": "Clean",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "scripts.clean",
       "justMyCode": true
     },
     {
       "name": "Format Code",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "module": "black",
       "justMyCode": true,
@@ -28,7 +35,7 @@
     },
     {
       "name": "Launch",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "module": "python_project_wizard.main",
       "justMyCode": true
