@@ -2,8 +2,8 @@ import unittest
 import unittest.mock as mock
 from dataclasses import dataclass
 
-from python_project_wizard.display.console import Console
-from python_project_wizard.display.display import Display
+from python_project_wizard.console.console import Console
+from python_project_wizard.console.display import Display
 from python_project_wizard.question.text_question import TextQuestion
 from python_project_wizard.question.bool_question import BoolQuestion
 from python_project_wizard.question.question import Question
@@ -29,7 +29,7 @@ class DisplayTestSuite(unittest.TestCase):
     def test_get_input_return(self):
         test_input = "Aaron"
         with mock.patch("builtins.input", return_value=test_input):
-            raw_input = Console().get_input()
+            raw_input = Console().input()
             self.assertIsInstance(raw_input, str)
             self.assertEqual(raw_input, test_input)
 
@@ -37,7 +37,7 @@ class DisplayTestSuite(unittest.TestCase):
         test_error_message = "ERROR MESSAGE"
         with mock.patch("builtins.print") as mock_print:
             console = Console()
-            console.display_error(Exception(test_error_message))
+            console.error(Exception(test_error_message))
             mock_print.assert_called()
 
     def test_default_string(self):
@@ -56,5 +56,5 @@ class DisplayTestSuite(unittest.TestCase):
         test_message = "test message"
         with mock.patch("builtins.print") as mock_print:
             console = Console()
-            console.display_message(test_message)
+            console.info(test_message)
             mock_print.assert_called()

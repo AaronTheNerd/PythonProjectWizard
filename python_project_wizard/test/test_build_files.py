@@ -6,10 +6,10 @@ from typing import Any
 from dataclasses import dataclass, field
 from python_project_wizard.build_project.build_files import *
 from python_project_wizard.project import Project
-from python_project_wizard.file import File
+from python_project_wizard.build_project.file import File
 from python_project_wizard.file_store.file_store import FileStore
 from python_project_wizard.build_project.file_builder import FileBuilder
-from python_project_wizard.display.display import Display
+from python_project_wizard.console.display import Display
 from python_project_wizard.question.question import Question
 
 

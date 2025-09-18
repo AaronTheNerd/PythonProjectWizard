@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 
 from python_project_wizard.dialog.dialog import Dialog
 from python_project_wizard.dialog.sync_dialog import SyncDialog
-from python_project_wizard.display.display import Display
+from python_project_wizard.console.display import Display
 from python_project_wizard.exception import DefaultMissingException
 from python_project_wizard.field import question_field
 from python_project_wizard.project import Project

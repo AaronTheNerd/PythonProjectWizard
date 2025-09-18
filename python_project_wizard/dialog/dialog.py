@@ -1,16 +1,17 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Generic, TypeVar
+from typing import Any
 
-from python_project_wizard.display.display import Display
-
-T = TypeVar("T")
+from python_project_wizard.input.input import Input
 
 
 @dataclass
-class Dialog(ABC, Generic[T]):
-    display: Display
+class Dialog(ABC):
 
     @abstractmethod
-    def run(self, result: T) -> T:
+    def display_inputs(self, inputs: list[Input]) -> dict[str, Any]:
+        ...
+
+    @abstractmethod
+    def display_build_progress(self, progress: float) -> None:
         ...

@@ -11,10 +11,11 @@ class FolderStore(FileStore):
         os.path.abspath(os.path.dirname(__file__)), "..", "templates"
     )
 
-    def get_files(self) -> dict[str, str]:
+    def get_file_content(self, filename: str) -> str:
         self.validate_directory_path()
-        template_files = self.get_template_files()
-        return self.get_file_contents(template_files)
+        filepath = os.path.join(self.templates_directory_path, filename)
+        self.validate_filepath(filepath)
+        return self.get_filepath_content(filepath)
 
     def validate_directory_path(self) -> None:
         if not os.path.exists(self.templates_directory_path):
@@ -22,27 +23,17 @@ class FolderStore(FileStore):
         if not os.path.isdir(self.templates_directory_path):
             raise InvalidDirectory()
 
-    def get_template_files(self) -> list[str]:
-        return [
-            full_path
-            for file in os.listdir(self.templates_directory_path)
-            if os.path.isfile(
-                full_path := os.path.join(self.templates_directory_path, file)
-            )
-        ]
+    def validate_filepath(self, filepath: str) -> None:
+        if not os.path.isfile(filepath):
+            raise InvalidFilePath()
 
-    def get_file_contents(self, template_files: list[str]) -> dict[str, str]:
-        file_contents = {}
-        for template_file in template_files:
-            file_content = self.get_template_file_content(template_file)
-            file_name = os.path.basename(template_file)
-            file_contents[file_name] = file_content
-        return file_contents
-
-    def get_template_file_content(self, template_file: str) -> str:
-        with open(template_file) as file:
+    def get_filepath_content(self, filepath: str) -> str:
+        with open(filepath) as file:
             return file.read()
 
 
 class InvalidDirectory(Exception):
+    ...
+
+class InvalidFilePath(Exception):
     ...

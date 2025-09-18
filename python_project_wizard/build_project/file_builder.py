@@ -2,7 +2,7 @@ from dataclasses import dataclass
 import os
 
 from python_project_wizard.build_project.directories import Directories
-from python_project_wizard.file import File, Destination
+from python_project_wizard.build_project.file import File, Destination
 
 
 @dataclass
